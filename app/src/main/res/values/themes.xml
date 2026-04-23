@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        This is the "pre-Compose" theme the Activity picks up before Compose takes over.
+        We extend Theme.Material3.DayNight to get good default system bar / dialog styling,
+        then let our Compose Theme.kt apply the real color scheme inside setContent { }.
+    -->
+    <style name="Theme.Tidelet" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/tidelet_soft</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowBackground">@color/tidelet_soft</item>
+    </style>
+
+    <!--
+        Cold-start splash theme. Uses androidx.core.splashscreen's compat
+        parent so the same styling works from API 26 up. `postSplashScreenTheme`
+        hands control back to Theme.Tidelet once the activity attaches its
+        window, so the splash is purely a launch-time affair.
+
+        windowSplashScreenBackground reuses the widget's warm-ivory token
+        (automatically overridden to warm near-black in values-night/colors.xml).
+        The animated icon is the sage-ring + terracotta-dot mark matching
+        web/public/favicon.svg.
+    -->
+    <style name="Theme.Tidelet.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/widget_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_animated</item>
+        <item name="windowSplashScreenAnimationDuration">600</item>
+        <item name="postSplashScreenTheme">@style/Theme.Tidelet</item>
+    </style>
+</resources>

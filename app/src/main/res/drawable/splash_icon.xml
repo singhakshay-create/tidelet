@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Tidelet splash-screen mark — the same two-circle design as the web
+    favicon (see web/public/favicon.svg):
+      * deep-sage outlined ring (primary palette)
+      * terracotta filled dot (warm accent) offset to the upper-right
+
+    Geometry uses a 108×108 viewport to match Android's adaptive-icon
+    convention; the SplashScreen API centers this inside its 288dp container
+    automatically.
+
+    Initial values are set for the *animated* variant (splash_icon_animated)
+    — the ring's trimPathEnd starts at 0 and the dot's scale starts at 0, so
+    neither is visible on the first frame. The animated-vector's objectAnimators
+    drive both to their final states over ~600 ms.
+
+    If this drawable is ever rendered without the animator wrapper (e.g. in a
+    preview), the mark will appear invisible — that's by design. Use the
+    animated-vector for any live surface.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- The sage ring: two half-circle arcs joined into a full stroke so
+         trimPathEnd can animate the trace from 0 → 1. Colour references
+         resolve per-config so the ring lightens automatically at night. -->
+    <path
+        android:name="ring"
+        android:pathData="M 37,54 a 17,17 0 0,1 34,0 a 17,17 0 0,1 -34,0"
+        android:strokeColor="@color/splash_ring"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:trimPathEnd="0" />
+
+    <!-- Terracotta dot, wrapped in a group so we can scale it around its own
+         centre. Starts at scale 0 (invisible) and pops to 1 after the ring
+         trace finishes. -->
+    <group
+        android:name="dot_group"
+        android:pivotX="74"
+        android:pivotY="34"
+        android:scaleX="0"
+        android:scaleY="0">
+        <path
+            android:name="dot"
+            android:pathData="M 66,34 a 8,8 0 0,1 16,0 a 8,8 0 0,1 -16,0"
+            android:fillColor="@color/splash_dot" />
+    </group>
+</vector>

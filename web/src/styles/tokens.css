@@ -1,0 +1,90 @@
+/*
+ * Tidelet design tokens — mirrors Tidelet/docs/DESIGN_SYSTEM.md.
+ * The web landing page shares the same palette, type, spacing, and shape
+ * scale as the Android app so brand coherence is free.
+ */
+
+:root {
+  /* Colour — light mode */
+  --color-background: #FBF9F5;        /* warm ivory */
+  --color-surface: #FFFFFF;
+  --color-surface-sunken: #F5F2EC;
+  --color-border-subtle: #E8E4DB;
+  --color-border-emphasis: #D4CEC1;
+  --color-ink: #1A1C1A;
+  --color-text-secondary: #404340;
+  --color-text-muted: #6B6F6B;
+  --color-primary: #2E3D35;           /* deep sage */
+  --color-primary-container: #E6EBE5;
+  --color-on-primary: #F5F3EE;
+  --color-accent-warm: #C26B5A;       /* terracotta — SOS accent */
+  --color-sos-surface: #FAE8E2;
+  --color-on-sos-surface: #7A342B;
+  --color-success: #5A8560;
+  --color-error: #A83E34;
+
+  /* Spacing — 8-point grid */
+  --space-1: 0.25rem;  /*  4px */
+  --space-2: 0.5rem;   /*  8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+  --space-12: 3rem;    /* 48px */
+  --space-16: 4rem;    /* 64px */
+  --space-24: 6rem;    /* 96px */
+
+  /* Shape */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-full: 999px;
+
+  /* Type */
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+
+  /* Size ramp — modular 1.25. Mobile-first; bumps at breakpoints below. */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+  --text-3xl: 2.5rem;
+  --text-4xl: 3.5rem;
+  --text-5xl: 4.5rem;
+
+  /* Line-height ramps matched to the app. */
+  --leading-body: 1.5;
+  --leading-heading: 1.35;
+  --leading-display: 1.1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #0F1110;
+    --color-surface: #181A19;
+    --color-surface-sunken: #22241F;
+    --color-border-subtle: #2A2D2A;
+    --color-border-emphasis: #2A2D2A;
+    --color-ink: #ECECEA;
+    --color-text-secondary: #B8BAB6;
+    --color-text-muted: #8C908B;
+    --color-primary: #A3BEB0;
+    --color-primary-container: #263028;
+    --color-on-primary: #0F1110;
+    --color-accent-warm: #D89482;
+    --color-sos-surface: #2A1A16;
+    --color-on-sos-surface: #F0D2C7;
+  }
+}
+
+/* Respect system Reduce Motion. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

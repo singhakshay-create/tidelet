@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Streak widget — deliberately minimal.
+    Single TextView centered on the background; the whole surface is clickable
+    (via setOnClickPendingIntent on @id/widget_root) so a tap opens Tidelet.
+
+    Styling matches the warm-ivory + deep-sage aesthetic:
+      - background: @color/widget_background (warm ivory)
+      - text colour: @color/widget_ink (deep sage)
+    Both colours are defined in res/values/colors.xml and overridden for
+    night-mode in res/values-night/colors.xml.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/widget_background">
+
+    <TextView
+        android:id="@+id/widget_streak_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/widget_ink"
+        android:gravity="center"
+        android:maxLines="2"
+        android:ellipsize="end"
+        tools:text="42 days" />
+
+</FrameLayout>

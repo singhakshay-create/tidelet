@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tidelet.app/sitemap.xml

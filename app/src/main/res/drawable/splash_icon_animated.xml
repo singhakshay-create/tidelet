@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Animated-vector wrapper over splash_icon.xml. Two one-shot animators:
+      1. ring: trimPathEnd 0 → 1 over 400 ms (the ring "draws in" clockwise).
+      2. dot_group: scaleX / scaleY 0 → 1 over 200 ms, starting 400 ms in
+         (the terracotta dot pops into place after the ring finishes).
+
+    Total animation duration is 600 ms — matches the
+    windowSplashScreenAnimationDuration on Theme.Tidelet.Splash so the OS
+    keeps the splash visible long enough for the whole sequence to play.
+-->
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/splash_icon">
+    <target
+        android:name="ring"
+        android:animation="@anim/splash_ring_trace" />
+    <target
+        android:name="dot_group"
+        android:animation="@anim/splash_dot_pop" />
+</animated-vector>

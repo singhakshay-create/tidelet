@@ -1,0 +1,446 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <h1 class="serif">A private companion for the days that are hard.</h1>
+        <p class="hero-subhead">
+          Tidelet helps you ride out cravings, track your relationship with alcohol,
+          and see patterns you'd miss — all on your phone, with nothing ever sent
+          anywhere else.
+        </p>
+        <a class="btn-primary" href="#download">Download on Google Play</a>
+      </div>
+      <div class="hero-mockup" aria-hidden="true">
+        <!-- Replace with a real home-screen screenshot at /images/hero-home.webp -->
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="phone-streak">7</div>
+            <div class="phone-sublabel">days</div>
+            <div class="phone-milestone">Next — 2 weeks · 7 to go</div>
+            <div class="phone-sos">I'm having a craving</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section>
+    <div class="container">
+      <h2>How it works</h2>
+      <div class="how-grid">
+        <div>
+          <h3>1. Pick your starting date.</h3>
+          <p>Today, yesterday, or any day. No account, no email.</p>
+        </div>
+        <div>
+          <h3>2. Open the SOS toolkit when a craving hits.</h3>
+          <p>Ride the wave for 15 minutes. Try box breathing. Re-read your own reasons.
+            Pick something else to do.</p>
+        </div>
+        <div>
+          <h3>3. Come back when you're ready.</h3>
+          <p>See your own patterns. Keep what helps. Everything stays on your phone.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What makes Tidelet different -->
+  <section class="section-sunken">
+    <div class="container">
+      <h2>What makes Tidelet different</h2>
+      <div class="feature-grid">
+        <div class="card">
+          <h3>On-device, always</h3>
+          <p>Your data lives on your phone. No servers. No accounts. No syncing.
+            We literally cannot see what you write, because we don't have a backend.</p>
+        </div>
+        <div class="card">
+          <h3>Grounded in research, not vibes</h3>
+          <p>Every tool in Tidelet comes from cognitive behavioural therapy (CBT),
+            Marlatt's relapse-prevention model, or urge surfing.
+            The science is linked below.</p>
+        </div>
+        <div class="card">
+          <h3>Anonymous by design</h3>
+          <p>No email, no phone number, no sign-up. Open the app and you're in.
+            The only identity Tidelet knows is the date you chose to start.</p>
+        </div>
+        <div class="card">
+          <h3>Free today</h3>
+          <p>No ads. No in-app purchases. No subscription. If that ever changes,
+            core features stay free — we'll tell you first.</p>
+        </div>
+        <div class="card">
+          <h3>Compassionate about slips</h3>
+          <p>A slip isn't a failure of you. Tidelet logs it, asks what helped and
+            what didn't, and keeps your history. No streak-reset shame.</p>
+        </div>
+        <div class="card">
+          <h3>Quiet on purpose</h3>
+          <p>No social feeds, no public badges, no daily push notifications trying
+            to win your attention back. Tidelet is there when you need it and silent when you don't.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The science -->
+  <section>
+    <div class="container narrow">
+      <h2>The science</h2>
+      <p>
+        Tidelet's toolkit is built on techniques that clinical trials have shown to
+        help people change their drinking:
+      </p>
+      <ul class="prose-list">
+        <li>
+          <strong>CBT (cognitive behavioural therapy) for alcohol use</strong> —
+          the standard of care for mild-to-moderate alcohol problems, and the most
+          consistently effective non-medication intervention in the research literature.
+          Every thought check in Tidelet is a mini thought record.
+        </li>
+        <li>
+          <strong>Urge surfing</strong> — a mindfulness technique that turns a
+          craving into an observed wave that rises and falls. Developed by
+          Alan Marlatt and colleagues; validated in multiple RCTs for substance-use
+          cravings. "Ride the wave" is a direct implementation.
+        </li>
+        <li>
+          <strong>Marlatt's relapse-prevention model</strong> — high-risk situations,
+          early warning signs, coping plan. Tidelet's compassionate-reset flow and
+          functional-analysis prompts are built on this framework.
+        </li>
+        <li>
+          <strong>Distraction and alternative-activity scheduling</strong> — the
+          behavioural lever behind "Do something else". Boring-sounding, and among
+          the most durable interventions when practised.
+        </li>
+      </ul>
+      <p class="citations">
+        Further reading: Kadden, Carroll et al., <em>Cognitive-Behavioral Coping Skills
+        Therapy Manual</em> (NIAAA) · Marlatt & Donovan, <em>Relapse Prevention</em>
+        (Guilford) · Bowen, Chawla, Marlatt, <em>Mindfulness-Based Relapse Prevention
+        for Addictive Behaviors</em> · Beck & Liese, <em>Cognitive Therapy of Substance
+        Abuse</em> (Guilford).
+      </p>
+    </div>
+  </section>
+
+  <!-- Privacy, really -->
+  <section class="section-sunken">
+    <div class="container narrow">
+      <h2>Privacy, really</h2>
+      <p>
+        Most "private" apps mean "we encrypt what we collect." Tidelet doesn't
+        collect anything. Here's what that actually means:
+      </p>
+      <ul class="prose-list">
+        <li>The app <strong>does not request the INTERNET permission</strong> in
+          its Android manifest. It literally cannot connect to the network.</li>
+        <li><code>android:allowBackup="false"</code> — your data is not included in
+          Google cloud backups unless you choose to export it.</li>
+        <li>No third-party SDKs. No analytics. No crash reporting. No advertising IDs.</li>
+        <li>No account, no email, no device fingerprint.</li>
+        <li>Your data lives in a local Room database + DataStore file, on your
+          phone only. For a backup, you export a Markdown file yourself and put it
+          wherever you like.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- What Tidelet is NOT -->
+  <section>
+    <div class="container narrow">
+      <h2>What Tidelet is <em>not</em></h2>
+      <ul class="prose-list">
+        <li>Not a replacement for therapy or medical care. If you're in crisis,
+          please use the resources below.</li>
+        <li>Not a social network. No leaderboards, no friends, no public streaks.</li>
+        <li>Not a wellness subscription. No tiers, no premium, no "unlock insights
+          for $9.99".</li>
+        <li>Not a therapist. The tools inside are for self-guided practice
+          between real support.</li>
+        <li>Not an AI chatbot. There's nothing for the app to "learn" because nothing
+          leaves your phone.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Crisis resources -->
+  <section>
+    <div class="container narrow">
+      <div class="card">
+        <h3>If you're in crisis</h3>
+        <p>
+          Tidelet is a tool for the long, steady work of changing a habit. It is not
+          crisis support. If you need someone right now:
+        </p>
+        <ul class="prose-list">
+          <li><strong>United States</strong> — 988 (Suicide &amp; Crisis Lifeline);
+            SAMHSA Helpline 1-800-662-4357</li>
+          <li><strong>United Kingdom</strong> — Samaritans 116 123;
+            Drinkline 0300 123 1110</li>
+          <li><strong>India</strong> — iCall +91 9152987821; AASRA +91 9820466726</li>
+          <li><strong>Elsewhere</strong> —
+            <a href="https://findahelpline.com/" rel="noopener noreferrer" target="_blank">Find a Helpline</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section-sunken">
+    <div class="container narrow">
+      <h2>Frequently asked</h2>
+      <details>
+        <summary>Is Tidelet really free?</summary>
+        <p>
+          Yes. There are no ads, no in-app purchases, and no subscription. Core
+          features will always be free. If we ever introduce an optional paid tier
+          for non-essential extras, we'll tell you before anything changes.
+        </p>
+      </details>
+      <details>
+        <summary>Can I export my data?</summary>
+        <p>
+          Yes. Settings → Export writes a Markdown file to a location you pick.
+          You can re-import it later into a fresh install. The format is
+          human-readable, so you can also read it in any text editor.
+        </p>
+      </details>
+      <details>
+        <summary>What if I slip?</summary>
+        <p>
+          Tidelet logs the slip, asks what was going on, and keeps your history.
+          Your "days" counter reflects your current streak, but the events log keeps
+          the full picture. Slips are data, not failures.
+        </p>
+      </details>
+      <details>
+        <summary>Is it only for alcohol?</summary>
+        <p>
+          Right now, yes. The tools (urge surfing, CBT thought checks, etc.)
+          generalise to other compulsive behaviours, but the copy and defaults are
+          built for alcohol. We'd rather do one thing well than four things vaguely.
+        </p>
+      </details>
+      <details>
+        <summary>Is it on iOS?</summary>
+        <p>
+          Not yet. Android-only. If we see strong interest and find the right iOS
+          contributor, we'll consider it.
+        </p>
+      </details>
+      <details>
+        <summary>Do you have a privacy policy?</summary>
+        <p>
+          A one-page policy is linked in the footer. The short version: we don't
+          collect data because the app has no way to.
+        </p>
+      </details>
+      <details>
+        <summary>Can I suggest a feature?</summary>
+        <p>
+          Yes, please email <a href="mailto:support@tidelet.app">support@tidelet.app</a>.
+          We read everything. We reply when we can.
+        </p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Download -->
+  <section id="download" class="download-cta">
+    <div class="container narrow" style="text-align: center;">
+      <h2>Ready to start?</h2>
+      <p style="margin-inline: auto;">
+        Free download. No account. Your data stays on your phone.
+      </p>
+      <a class="btn-primary" href="#" style="margin-top: var(--space-6);">Download on Google Play</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-row">
+      <span>© 2026 Tidelet</span>
+      <span>
+        <a href="/privacy.html">Privacy policy</a>
+        &nbsp;·&nbsp;
+        <a href="mailto:support@tidelet.app">Support</a>
+      </span>
+    </div>
+  </footer>
+</Base>
+
+<style>
+  .hero {
+    padding-block: var(--space-16) var(--space-12);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+
+  @media (min-width: 64rem) {
+    .hero-grid {
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+
+  .hero-copy h1 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: var(--text-4xl);
+    line-height: var(--leading-display);
+    color: var(--color-ink);
+  }
+
+  @media (min-width: 64rem) {
+    .hero-copy h1 {
+      font-size: var(--text-5xl);
+    }
+  }
+
+  .hero-subhead {
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-8);
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+  }
+
+  .hero-mockup {
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Placeholder "phone" rendered in CSS so the page ships with no external
+     image dependency. Swap for a real screenshot at public/images/hero-home.webp
+     when ready — see LANDING_PAGE_SPEC.md §7.3. */
+  .phone-frame {
+    width: 260px;
+    aspect-ratio: 9 / 19.5;
+    background: var(--color-ink);
+    border-radius: var(--radius-lg);
+    padding: 10px;
+  }
+
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    background: var(--color-background);
+    border-radius: calc(var(--radius-lg) - 6px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: var(--space-6);
+    gap: var(--space-4);
+  }
+
+  .phone-streak {
+    margin-top: auto;
+    font-family: var(--font-serif);
+    font-size: 5rem;
+    line-height: 1;
+    color: var(--color-ink);
+  }
+
+  .phone-sublabel {
+    color: var(--color-text-muted);
+    font-size: var(--text-base);
+  }
+
+  .phone-milestone {
+    margin-top: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .phone-sos {
+    margin-top: auto;
+    width: 100%;
+    padding: var(--space-3) var(--space-6);
+    border: 1.5px solid var(--color-accent-warm);
+    border-radius: var(--radius-full);
+    text-align: center;
+    font-size: var(--text-sm);
+    color: var(--color-ink);
+    position: relative;
+  }
+
+  .phone-sos::before {
+    content: "";
+    position: absolute;
+    left: var(--space-4);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background: var(--color-accent-warm);
+    border-radius: var(--radius-full);
+  }
+
+  /* Three-column how-it-works. */
+  .how-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    margin-top: var(--space-8);
+  }
+
+  @media (min-width: 48rem) {
+    .how-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .section-sunken {
+    background: var(--color-surface-sunken);
+  }
+
+  .narrow {
+    max-width: 42rem; /* 672 px — single-column reading width */
+  }
+
+  .prose-list {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .prose-list li {
+    padding-left: var(--space-4);
+    border-left: 2px solid var(--color-border-subtle);
+    color: var(--color-text-secondary);
+  }
+
+  .citations {
+    margin-top: var(--space-6);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .download-cta {
+    padding-block: var(--space-12);
+    text-align: center;
+  }
+
+  .footer-row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+</style>

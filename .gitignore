@@ -1,0 +1,32 @@
+# Gradle
+.gradle/
+build/
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+local.properties
+captures/
+
+# Kotlin IDE cache (per-session garbage — not the gradle build)
+.kotlin/
+
+# Android build outputs
+app/build/
+app/release/
+*.apk
+*.aab
+
+# NDK / C++ (not used today, but harmless to pre-empt)
+.cxx/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+
+# Logs
+*.log

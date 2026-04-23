@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    AppWidgetProviderInfo metadata for the streak widget.
+
+    Size: 2 cells wide × 1 cell tall — fits naturally on most launchers
+    without cropping the day count. Users can usually resize; we allow that
+    via resizeMode="horizontal|vertical".
+
+    updatePeriodMillis is 30 minutes, the minimum Android honours. We also
+    schedule a WorkManager job (StreakWidgetRefreshWorker) at 1h cadence to
+    catch any dropped auto-updates.
+
+    No configure activity — the widget shows current streak data with no
+    setup needed. No preview-layout key is set; Android generates one from
+    the layout itself.
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="110dp"
+    android:minHeight="40dp"
+    android:targetCellWidth="2"
+    android:targetCellHeight="1"
+    android:updatePeriodMillis="1800000"
+    android:initialLayout="@layout/streak_widget"
+    android:previewLayout="@layout/streak_widget"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen"
+    android:description="@string/widget_description" />

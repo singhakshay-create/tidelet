@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Pops the terracotta dot into place after the ring finishes tracing.
+    scaleX + scaleY both go 0 → 1 over 200 ms, starting 400 ms in so the dot
+    appears right as the ring completes its loop. The overshoot interpolator
+    gives a small bounce that matches the design system's Emphatic_Easing
+    intent (cubic(0.2, 0.8, 0.2, 1)) — visually punchier than fast_out_slow_in.
+-->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:ordering="together">
+    <objectAnimator
+        android:propertyName="scaleX"
+        android:valueFrom="0"
+        android:valueTo="1"
+        android:valueType="floatType"
+        android:duration="200"
+        android:startOffset="400"
+        android:interpolator="@android:anim/overshoot_interpolator" />
+    <objectAnimator
+        android:propertyName="scaleY"
+        android:valueFrom="0"
+        android:valueTo="1"
+        android:valueType="floatType"
+        android:duration="200"
+        android:startOffset="400"
+        android:interpolator="@android:anim/overshoot_interpolator" />
+</set>

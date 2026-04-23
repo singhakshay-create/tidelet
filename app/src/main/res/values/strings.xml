@@ -1,0 +1,593 @@
+<resources>
+    <string name="app_name">Tidelet</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_welcome_title">Welcome to Tidelet</string>
+    <string name="onboarding_welcome_body">A quiet companion for the moments between drinks. We\'ll keep this short.</string>
+    <string name="onboarding_start_date_title">When did you last drink?</string>
+    <string name="onboarding_start_date_body">We\'ll start your count from here. You can change it anytime.</string>
+    <string name="onboarding_start_date_today">Today</string>
+    <string name="onboarding_start_date_yesterday">Yesterday</string>
+    <string name="onboarding_start_date_earlier">Earlier — pick a date</string>
+    <string name="onboarding_done_title">You\'re set</string>
+    <string name="onboarding_done_body">Tidelet is a tool, not treatment. If you\'ve been drinking heavily every day, please talk to a doctor before stopping suddenly — alcohol withdrawal can be serious.</string>
+    <string name="onboarding_continue">Continue</string>
+    <string name="onboarding_finish">Take me to the app</string>
+
+    <!-- Home -->
+    <string name="home_days_singular">day</string>
+    <string name="home_days_plural">days</string>
+    <!-- PHASE_2 §9A4 — shown under the streak count once the user has reset
+         at least once, so lifetime dry days ≠ current streak. Grace framing:
+         resets don\'t erase the work. -->
+    <string name="home_lifetime_total_subtitle">You\'ve had %1$d dry days total with Tidelet.</string>
+    <string name="home_hours_singular">hour</string>
+    <string name="home_hours_plural">hours</string>
+    <string name="home_minutes_singular">minute</string>
+    <string name="home_minutes_plural">minutes</string>
+    <string name="home_milestone_next">Next milestone: %1$s (%2$d to go)</string>
+    <string name="home_sos_button">I\'m having a craving</string>
+    <string name="home_no_streak_yet">The count starts here.</string>
+    <string name="home_weekly_title">How was the week?</string>
+    <string name="home_weekly_body">A quick Sunday reflection — one rating, one sentence if you want. Takes a minute.</string>
+    <string name="home_weekly_cta">Reflect on the week</string>
+
+    <!-- Weekly reflection -->
+    <string name="weekly_title">Weekly reflection</string>
+    <string name="weekly_rating_prompt">How did the week feel?</string>
+    <string name="weekly_rating_help">Your honest answer, not the scorecard one.</string>
+    <string name="weekly_rating_1">Rough</string>
+    <string name="weekly_rating_2">Hard</string>
+    <string name="weekly_rating_3">Okay</string>
+    <string name="weekly_rating_4">Good</string>
+    <string name="weekly_rating_5">Great</string>
+    <string name="weekly_note_label">One sentence (optional)</string>
+    <string name="weekly_note_hint">What helped, what didn\'t, what you want next week to look like.</string>
+    <string name="weekly_save">Save reflection</string>
+
+    <!-- SOS -->
+    <string name="sos_title">You\'re here. That\'s the first step.</string>
+    <string name="sos_close">Close</string>
+    <string name="sos_ride_wave">Ride the wave</string>
+    <string name="sos_ride_wave_sub">15-minute timer</string>
+    <string name="sos_breathe">Breathe</string>
+    <string name="sos_breathe_sub">Box breathing</string>
+    <string name="sos_reasons">My reasons</string>
+    <string name="sos_reasons_sub">Why you\'re doing this</string>
+    <string name="sos_distractions">Do something else</string>
+    <string name="sos_distractions_sub">A quick change of gear</string>
+    <string name="sos_journal">Write it down</string>
+    <string name="sos_journal_sub">One prompt. A place to name it.</string>
+
+    <!-- Ride the Wave -->
+    <string name="wave_title">Ride the wave</string>
+    <string name="wave_line_1">Urges come and go like waves.</string>
+    <string name="wave_line_2">You don\'t have to act on this one.</string>
+    <string name="wave_line_3">Notice where it sits in your body.</string>
+    <string name="wave_line_4">Your breath is here. So are you.</string>
+    <string name="wave_line_5">Nothing needs to happen right now.</string>
+    <string name="wave_end_early">End early</string>
+    <string name="wave_done">You made it through.</string>
+    <string name="wave_done_body">That was a hard thing, and you did it.</string>
+    <string name="wave_how_did_it_go">How did that go?</string>
+    <string name="wave_got_through">I got through it</string>
+    <string name="wave_still_struggling">Still struggling</string>
+    <string name="wave_i_drank">I drank</string>
+
+    <!-- Compassionate reset -->
+    <string name="reset_title">You\'re still here.</string>
+    <string name="reset_body_1">One day is data, not failure. What was happening around you matters more than the slip itself.</string>
+    <string name="reset_body_2">Logging today — even a single tag — is how future-you sees the pattern instead of just the moment.</string>
+    <string name="reset_log_today">Log today\'s check-in</string>
+    <string name="reset_not_now">Not now</string>
+
+    <!-- Soundscapes (Ride the Wave) -->
+    <string name="soundscape_silent">Silent</string>
+    <string name="soundscape_ocean">Ocean</string>
+    <string name="soundscape_river">River</string>
+    <string name="soundscape_rain">Rain</string>
+
+    <!-- Breathe -->
+    <string name="breathe_title">Breathe</string>
+    <string name="breathe_in">In</string>
+    <string name="breathe_hold">Hold</string>
+    <string name="breathe_out">Out</string>
+    <string name="breathe_cycles">%1$d cycles</string>
+    <string name="breathe_stop">Stop</string>
+
+    <!-- My reasons -->
+    <string name="reasons_title">My reasons</string>
+    <string name="reasons_empty_title">Your reasons will live here.</string>
+    <string name="reasons_empty_body">Write down a few reasons you\'re doing this. Future-you will read them during the hard moments.</string>
+    <string name="reasons_add_hint">Add a reason — short is fine</string>
+    <string name="reasons_add_button">Add</string>
+    <string name="reasons_delete">Remove</string>
+
+    <!-- Journal (SOS) -->
+    <string name="journal_title">Write it down</string>
+    <string name="journal_prompt">What\'s really going on right now?</string>
+    <string name="journal_placeholder">Whatever\'s there. No one else reads this.</string>
+    <string name="journal_save">Save</string>
+    <string name="journal_skip">Skip</string>
+    <string name="journal_back">Back to SOS</string>
+    <string name="journal_saved_title">It\'s written down.</string>
+    <string name="journal_saved_body">Sometimes naming it is most of the work.</string>
+
+    <!-- Do something else (distractions) -->
+    <string name="distractions_title">Do something else</string>
+    <string name="distractions_body">A craving usually loses its grip inside 20 minutes. Pick one thing from the list and do it now.</string>
+    <string name="distractions_pick_one">Pick one for me</string>
+    <string name="distractions_did_it">I did it</string>
+    <string name="distractions_skipped">Nothing worked</string>
+
+    <!-- Bottom nav -->
+    <string name="nav_home">Home</string>
+    <string name="nav_log">Log</string>
+    <string name="nav_stats">Stats</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Stub screens -->
+    <string name="stats_coming_soon">Milestones, money saved, hours reclaimed — coming soon.</string>
+    <string name="settings_coming_soon">Settings — coming soon.</string>
+
+    <!-- Stats dashboard -->
+    <string name="stats_days_since_label">Days since start</string>
+    <string name="stats_drink_free_label">Drink-free days</string>
+    <string name="stats_this_month">this month</string>
+    <string name="stats_total_fmt">%1$d total</string>
+    <string name="stats_money_saved_label">Money saved</string>
+    <string name="stats_money_saved_assumption">Based on %1$d drinks/day × %2$s</string>
+    <string name="stats_next_milestone_label">Next milestone</string>
+    <string name="stats_next_milestone_headline">%1$s</string>
+    <string name="stats_next_milestone_sub">%1$d to go</string>
+    <string name="stats_all_milestones_cleared">All milestones cleared. You\'re in uncharted water.</string>
+    <string name="stats_footer_note">Money-saved is an estimate based on the defaults. You\'ll be able to tune it in Settings.</string>
+
+    <!-- PHASE_2 §9A2 — hours reclaimed. The leading "≈" is literal, not a
+         formatter trick, so the user reads this as a rough estimate rather
+         than a tally of actual clock-time. -->
+    <string name="stats_hours_reclaimed_label">Hours reclaimed</string>
+    <string name="stats_hours_reclaimed_value">≈ %1$d h</string>
+    <string name="stats_hours_reclaimed_assumption">Assuming %1$d drinks/day × %2$d h each.</string>
+
+    <!-- PHASE_2 §9A1 — Health-recovery timeline. Copy is deliberately hedged
+         ("typical", "often", "many people") — the app is not a clinician.
+         The footer line underscores the hedge and nudges toward professional
+         help if anything feels off. -->
+    <string name="health_recovery_card_title">Your body, over time</string>
+    <string name="health_recovery_not_reached">The first milestone is just a day away.</string>
+    <string name="health_recovery_days_until">%1$d days to go</string>
+    <string name="health_recovery_footer">Every body is different. Talk to a clinician if anything feels wrong.</string>
+
+    <string name="health_recovery_24h_title">24 hours</string>
+    <string name="health_recovery_24h_body">Blood alcohol clears; for most people, sleep starts to look more normal tonight.</string>
+
+    <string name="health_recovery_72h_title">72 hours</string>
+    <string name="health_recovery_72h_body">Acute withdrawal typically fades. Many people report thinking feels a little sharper.</string>
+
+    <string name="health_recovery_2w_title">Two weeks</string>
+    <string name="health_recovery_2w_body">Liver fat commonly starts reducing. Cravings often feel less constant around this point.</string>
+
+    <string name="health_recovery_30d_title">30 days</string>
+    <string name="health_recovery_30d_body">Liver enzymes typically begin trending down. Skin and hydration often start to look better too.</string>
+
+    <string name="health_recovery_90d_title">90 days</string>
+    <string name="health_recovery_90d_body">Imaging studies commonly show early prefrontal-cortex recovery at this stage — the part of the brain that handles impulse control.</string>
+
+    <string name="health_recovery_1yr_title">One year</string>
+    <string name="health_recovery_1yr_body">Most of the measurable health gains from abstinence are typically in place by now. Many people describe it as a steady identity shift rather than a milestone.</string>
+
+    <!-- Log (history) -->
+    <string name="log_title">Log</string>
+    <string name="log_today_label">Today</string>
+    <string name="log_check_in_today">Check in for today</string>
+    <string name="log_edit_today">Edit today\'s check-in</string>
+    <string name="log_empty_title">No check-ins yet.</string>
+    <string name="log_empty_body">A short daily note is one of the strongest predictors that someone sticks with it. It takes less than a minute.</string>
+    <string name="log_entry_drink_free">Drink-free</string>
+    <string name="log_entry_drank">%1$d drinks</string>
+    <string name="log_entry_drank_unknown">Drank (count not set)</string>
+
+    <!-- Daily Check-in form -->
+    <string name="checkin_title">Daily check-in</string>
+    <string name="checkin_for_date">For %1$s</string>
+    <string name="checkin_drink_question">Did you have any drinks on this day?</string>
+    <string name="checkin_drank_no">No — drink-free</string>
+    <string name="checkin_drank_yes">Yes</string>
+    <string name="checkin_how_many">How many standard drinks?</string>
+    <string name="checkin_decrement">Fewer</string>
+    <string name="checkin_increment">More</string>
+    <string name="checkin_mood_question">How did the day feel?</string>
+    <string name="checkin_mood_1">Rough</string>
+    <string name="checkin_mood_2">Hard</string>
+    <string name="checkin_mood_3">Okay</string>
+    <string name="checkin_mood_4">Good</string>
+    <string name="checkin_mood_5">Great</string>
+    <string name="checkin_trigger_question">What was going on? (optional)</string>
+    <string name="checkin_trigger_help">A single tag is enough. Tap again to unselect.</string>
+    <string name="checkin_trigger_stress">Stress</string>
+    <string name="checkin_trigger_social">Social</string>
+    <string name="checkin_trigger_boredom">Boredom</string>
+    <string name="checkin_trigger_celebration">Celebration</string>
+    <string name="checkin_trigger_halt">HALT</string>
+    <string name="checkin_trigger_habit">Habit</string>
+    <string name="checkin_trigger_other">Other</string>
+    <string name="checkin_note_label">Anything to remember? (optional)</string>
+    <string name="checkin_note_hint">Trigger, what helped, a win — up to you.</string>
+    <string name="checkin_save">Save</string>
+    <string name="checkin_cancel">Cancel</string>
+    <string name="checkin_back">Back</string>
+
+    <!-- Journal hub -->
+    <string name="journal_hub_title">What do you need?</string>
+    <string name="journal_hub_body">Pick the one that fits the moment. Both take a couple of minutes.</string>
+    <string name="journal_hub_freeform_title">Write freely</string>
+    <string name="journal_hub_freeform_sub">One prompt, an empty page. Say what\'s there.</string>
+    <string name="journal_hub_thought_check_title">Thought check</string>
+    <string name="journal_hub_thought_check_sub">Four short prompts to look at the thought underneath.</string>
+    <string name="journal_hub_back">Back to SOS</string>
+
+    <!-- Thought check -->
+    <string name="thought_check_title">Thought check</string>
+    <string name="thought_check_intro">A craving often rides on one loud thought. Let\'s slow it down.</string>
+    <string name="thought_check_q1">1. What\'s happening right now?</string>
+    <string name="thought_check_q1_hint">The situation and how it feels in your body.</string>
+    <string name="thought_check_q2">2. What\'s the thought?</string>
+    <string name="thought_check_q2_hint">\"I need this.\" \"I can\'t do this sober.\" Whatever\'s loud.</string>
+    <string name="thought_check_pattern_prompt">Is there a pattern here? (optional)</string>
+    <string name="thought_check_see_patterns">See common patterns</string>
+    <string name="thought_check_q3">3. Is that 100% true?</string>
+    <string name="thought_check_q3_hint">One sentence of push-back is plenty.</string>
+    <string name="thought_check_q4">4. What would you tell a friend?</string>
+    <string name="thought_check_q4_hint">Say it to yourself the way you\'d say it to someone you love.</string>
+    <string name="thought_check_save">Save thought check</string>
+    <string name="thought_check_skip">Skip for now</string>
+    <string name="thought_check_saved_title">Named it.</string>
+    <string name="thought_check_saved_body">Saved. You can look back at these any time.</string>
+    <string name="thought_check_back">Back to SOS</string>
+
+    <!-- Cognitive distortions library -->
+    <string name="distortions_title">Common thought patterns</string>
+    <string name="distortions_intro">These are shapes drinking-thoughts often take. Spotting one is already half the work.</string>
+    <string name="distortions_back">Back</string>
+
+    <string name="distortion_all_or_nothing">All-or-nothing</string>
+    <string name="distortion_all_or_nothing_def">Seeing things in black-and-white — you\'re either perfect or it\'s ruined.</string>
+    <string name="distortion_all_or_nothing_ex">\"I had one drink, so the whole month is wasted — may as well keep going.\"</string>
+
+    <string name="distortion_permission_giving">Permission-giving</string>
+    <string name="distortion_permission_giving_def">Finding a reason why this time is the exception.</string>
+    <string name="distortion_permission_giving_ex">\"It\'s been a long week. I\'ve earned this one.\"</string>
+
+    <string name="distortion_emotional_reasoning">Emotional reasoning</string>
+    <string name="distortion_emotional_reasoning_def">Treating a feeling as the verdict on what\'s true.</string>
+    <string name="distortion_emotional_reasoning_ex">\"I feel like I can\'t cope without it, so I can\'t.\"</string>
+
+    <string name="distortion_fortune_telling">Fortune-telling</string>
+    <string name="distortion_fortune_telling_def">Predicting the future with certainty — usually the worst version.</string>
+    <string name="distortion_fortune_telling_ex">\"This craving won\'t stop unless I drink.\"</string>
+
+    <string name="distortion_minimizing">Minimizing</string>
+    <string name="distortion_minimizing_def">Shrinking the importance of the progress you\'ve made.</string>
+    <string name="distortion_minimizing_ex">\"Eleven days was nothing. It barely counts.\"</string>
+
+    <string name="distortion_magnifying">Magnifying</string>
+    <string name="distortion_magnifying_def">Blowing up the hardness of the moment out of proportion.</string>
+    <string name="distortion_magnifying_ex">\"This is unbearable. I literally can\'t get through tonight.\"</string>
+
+    <string name="distortion_should_ing">Should-ing</string>
+    <string name="distortion_should_ing_def">Wielding \"should\" against yourself — usually to harsh effect.</string>
+    <string name="distortion_should_ing_ex">\"I should be over this by now. What\'s wrong with me.\"</string>
+
+    <string name="distortion_mental_filter">Mental filter</string>
+    <string name="distortion_mental_filter_def">Noticing only the evidence that fits the craving.</string>
+    <string name="distortion_mental_filter_ex">\"Tonight\'s been rough — forget the ten good nights before it.\"</string>
+
+    <string name="distortion_personalization">Personalization</string>
+    <string name="distortion_personalization_def">Reading a neutral situation as being about you, and needing to fix it with a drink.</string>
+    <string name="distortion_personalization_ex">\"They\'re quiet because of me. I need something to smooth this.\"</string>
+
+    <string name="distortion_labeling">Labeling</string>
+    <string name="distortion_labeling_def">Turning a behaviour into a fixed identity.</string>
+    <string name="distortion_labeling_ex">\"I\'m an alcoholic and that\'s just who I am. What\'s the point.\"</string>
+
+    <!-- Distortion antidotes — one short technique + one challenging question each. -->
+    <string name="distortion_all_or_nothing_technique">Find the middle ground.</string>
+    <string name="distortion_all_or_nothing_question">Would I judge a friend this harshly for the same slip?</string>
+
+    <string name="distortion_permission_giving_technique">Name the thought out loud. It loses power when said.</string>
+    <string name="distortion_permission_giving_question">What does \"just this once\" actually cost me this time?</string>
+
+    <string name="distortion_emotional_reasoning_technique">Feelings aren\'t evidence. Treat the feeling as weather, not fact.</string>
+    <string name="distortion_emotional_reasoning_question">If I weren\'t feeling this, would I still believe it?</string>
+
+    <string name="distortion_fortune_telling_technique">Name it: \"I\'m predicting, not knowing.\"</string>
+    <string name="distortion_fortune_telling_question">What\'s one time this prediction was wrong?</string>
+
+    <string name="distortion_minimizing_technique">Put the actual number on it.</string>
+    <string name="distortion_minimizing_question">If a friend did this, would I call it small?</string>
+
+    <string name="distortion_magnifying_technique">Say it smaller. One slip, not a collapse.</string>
+    <string name="distortion_magnifying_question">On a scale of 1 to 10, how bad is this actually?</string>
+
+    <string name="distortion_should_ing_technique">Swap \"should\" for \"would prefer to.\"</string>
+    <string name="distortion_should_ing_question">Who decided this was a rule?</string>
+
+    <string name="distortion_mental_filter_technique">Add one good thing you\'re ignoring.</string>
+    <string name="distortion_mental_filter_question">What am I not counting right now?</string>
+
+    <string name="distortion_personalization_technique">Separate your part from what wasn\'t yours.</string>
+    <string name="distortion_personalization_question">What did I actually control here?</string>
+
+    <string name="distortion_labeling_technique">Describe the behaviour, not the person.</string>
+    <string name="distortion_labeling_question">What would I say about a friend who did this once?</string>
+
+    <!-- "Not a thought?" callout at the bottom of the Distortions library. -->
+    <string name="distortion_habit_callout_title">Not a thought — more of a habit?</string>
+    <string name="distortion_habit_callout_body">Sometimes drinking isn\'t led by a thought at all. It\'s the 6 pm reach, the weekend routine, the same chair. That\'s a habit loop, not a distortion. Log it as a trigger on your daily check-in to track it over time.</string>
+    <string name="distortion_habit_callout_cta">Open check-in</string>
+
+    <!-- Functional analysis panel -->
+    <string name="func_analysis_title">Want to map what happened?</string>
+    <string name="func_analysis_intro">Three quick questions. Skip if you\'re not up for it.</string>
+    <string name="func_analysis_antecedent_label">What came just before? (tap one)</string>
+    <string name="func_analysis_thought_label">What was the thought?</string>
+    <string name="func_analysis_thought_hint">\"I need this,\" \"I can\'t do this sober\" — whatever was loudest.</string>
+    <string name="func_analysis_following_label">What happened next?</string>
+    <string name="func_analysis_following_hint">What you did, what helped, what didn\'t.</string>
+    <string name="func_analysis_save">Save</string>
+    <string name="func_analysis_skip">Skip</string>
+
+    <!-- Ride the Wave → in-line analysis -->
+    <string name="wave_analysis_title">Map the craving</string>
+    <string name="wave_analysis_intro_title">That was real.</string>
+    <string name="wave_analysis_intro_body">If it helps, jot down what just happened while it\'s fresh.</string>
+
+    <!-- Reset → in-line analysis -->
+    <string name="reset_map_title">Map what happened (optional)</string>
+    <string name="reset_map_saved">Saved. You can look back at these in your log later.</string>
+
+    <!-- Relapse prevention plan -->
+    <string name="relapse_plan_title">Relapse prevention plan</string>
+    <string name="relapse_plan_intro">Your calm-moment plan for the harder moments. Short sentences are plenty.</string>
+    <string name="relapse_plan_back">Back</string>
+    <string name="relapse_plan_high_risk_title">High-risk situations</string>
+    <string name="relapse_plan_high_risk_help">Places, people, or feelings that have led to drinking before.</string>
+    <string name="relapse_plan_high_risk_hint">e.g. Friday nights alone; after a fight with my partner; bar work events.</string>
+    <string name="relapse_plan_warnings_title">Early warning signs</string>
+    <string name="relapse_plan_warnings_help">How the craving shows up before the decision point.</string>
+    <string name="relapse_plan_warnings_hint">e.g. I start romanticising wine glasses; irritable without a reason.</string>
+    <string name="relapse_plan_coping_title">Coping plan</string>
+    <string name="relapse_plan_coping_help">What you\'ll actually do — the first move, then the second.</string>
+    <string name="relapse_plan_coping_hint">e.g. Call J; open the app; walk to the river before deciding anything.</string>
+    <string name="relapse_plan_save_create">Save plan</string>
+    <string name="relapse_plan_save_update">Update plan</string>
+    <string name="relapse_plan_saved">Saved. You can update this any time.</string>
+
+    <!-- Refusal rehearsal -->
+    <string name="refusal_title">Drink refusal rehearsal</string>
+    <string name="refusal_back">Back</string>
+    <string name="refusal_intro">Saying \"no thanks\" is easier when your tongue has said it before. Practice a few.</string>
+    <string name="refusal_builtin_heading">Common phrases</string>
+    <string name="refusal_user_heading">Your phrases</string>
+    <string name="refusal_user_empty">You haven\'t added any of your own yet — the ones above are fine to start with.</string>
+    <string name="refusal_add_hint">Add a phrase in your own words</string>
+    <string name="refusal_add_button">Add phrase</string>
+    <string name="refusal_delete">Remove</string>
+    <string name="refusal_practice_prompt">Pick one at random and say it out loud.</string>
+    <string name="refusal_practice_start">Pick one</string>
+    <string name="refusal_practice_say">Say it out loud:</string>
+    <string name="refusal_practice_done">Done</string>
+    <string name="refusal_practice_another">Another</string>
+    <string name="refusal_practice_session_count">%1$d rehearsed this session</string>
+
+    <string-array name="refusal_builtin_phrases">
+        <item>No thanks — I\'m not drinking tonight.</item>
+        <item>I\'m taking a break from alcohol.</item>
+        <item>Just water for me, thanks.</item>
+        <item>I don\'t drink, but I\'ll have a soda.</item>
+        <item>Not tonight — I\'ve got an early start.</item>
+        <item>I\'m good. Thanks though.</item>
+        <item>I\'m driving.</item>
+    </string-array>
+
+    <!-- Settings -->
+    <string name="settings_section_plans">Plans &amp; practice</string>
+    <string name="settings_section_data">Your data</string>
+
+    <string name="settings_relapse_plan">Relapse prevention plan</string>
+    <string name="settings_relapse_plan_sub">Your high-risk situations, warning signs, and coping plan.</string>
+    <string name="settings_refusal">Drink refusal rehearsal</string>
+    <string name="settings_refusal_sub">Practice saying \"no thanks\" before you need to.</string>
+    <string name="settings_distortions">Common thought patterns</string>
+    <string name="settings_distortions_sub">Reference for thought-check. Psychoeducation, not a quiz.</string>
+
+    <string name="settings_export">Export your data</string>
+    <string name="settings_export_sub">Save everything as a Markdown file.</string>
+    <string name="settings_import">Import from file</string>
+    <string name="settings_import_sub">Restore from a previous export. Merges — it won\'t wipe anything.</string>
+    <string name="settings_wipe">Delete all my data</string>
+    <string name="settings_wipe_sub">Clears every check-in, journal, and plan. Cannot be undone.</string>
+
+    <string name="settings_wipe_confirm_title">Delete everything?</string>
+    <string name="settings_wipe_confirm_body">Every check-in, reason, journal entry, thought-check, and plan will be removed from this device. There is no undo.</string>
+    <string name="settings_wipe_confirm_yes">Delete everything</string>
+    <string name="settings_wipe_confirm_no">Cancel</string>
+
+    <string name="settings_status_exported">Exported — %1$d characters written.</string>
+    <string name="settings_status_imported">Imported — %1$d rows merged.</string>
+    <string name="settings_status_wiped">All data deleted from this device.</string>
+
+    <!-- Drinking baseline — fuels the money-saved estimate on Stats. -->
+    <string name="settings_section_baseline">Drinking baseline</string>
+    <string name="settings_baseline_help">Used to estimate money and time saved. Stays on your phone.</string>
+    <string name="settings_baseline_drinks_label">Drinks per day</string>
+    <string name="settings_baseline_price_label">Price per drink</string>
+    <!-- PHASE_2 §9A2 — whole-hour estimate per drink for the Stats
+         "hours reclaimed" card. Default 1. -->
+    <string name="settings_baseline_hours_label">Hours per drink</string>
+    <string name="settings_baseline_hours_help">Rough guess of drinking + recovery time — drives the \"hours reclaimed\" estimate on Stats.</string>
+    <string name="settings_baseline_save">Save baseline</string>
+
+    <!-- PHASE_2 §9A5 — Reflection section + evening-review opt-in. -->
+    <string name="settings_section_reflection">Reflection</string>
+    <string name="settings_evening_review_title">Show evening review prompt</string>
+    <string name="settings_evening_review_help">A two-line optional reflection, after dinner or before bed.</string>
+
+    <!-- PHASE_2 §9B1 — Compassionate visual companion opt-in + accessibility. -->
+    <string name="settings_companion_title">Show visual companion</string>
+    <string name="settings_companion_help">A small ambient motif above your day count. Grows with streak and check-in consistency; never visibly regresses.</string>
+    <!-- Screen-reader description for the companion Canvas. %1$d is the
+         current stage (1..5), %2$d is the total number of stages. -->
+    <string name="companion_description">Tidelet companion, stage %1$d of %2$d.</string>
+
+    <!-- PHASE_2 §9A5 — evening mini-review screen + Home entry button. -->
+    <string name="home_evening_review_cta">Evening review</string>
+    <string name="evening_review_title">Evening review</string>
+    <string name="evening_review_intro">Two short lines, if anything stands out from today.</string>
+    <string name="evening_review_win_label">One win</string>
+    <string name="evening_review_win_placeholder">Something — small is fine — that went well.</string>
+    <string name="evening_review_challenge_label">One challenge</string>
+    <string name="evening_review_challenge_placeholder">Something that was hard, or that you noticed.</string>
+    <string name="evening_review_save">Save tonight\'s review</string>
+    <string name="evening_review_skip">Not now</string>
+
+    <!-- PHASE_2 §9B2 — Variable-reward insight cards.
+         Categories: q* = quote, s* = science. Keys are stable (do NOT
+         renumber) — they're persisted in the InsightCardShown table to
+         enforce the 60-day no-repeat rule. -->
+    <string name="home_insight_dismiss">Got it</string>
+
+    <string name="insight_q01_title">Reflection</string>
+    <string name="insight_q01_body">"Until you make the unconscious conscious, it will direct your life and you will call it fate." — Carl Jung</string>
+
+    <string name="insight_q02_title">Reflection</string>
+    <string name="insight_q02_body">"You have power over your mind — not outside events. Realize this, and you will find strength." — Marcus Aurelius</string>
+
+    <string name="insight_q03_title">Reflection</string>
+    <string name="insight_q03_body">"One day at a time" isn\'t a slogan — it\'s a survival tactic. Today is the only commitment that matters.</string>
+
+    <string name="insight_q04_title">Reflection</string>
+    <string name="insight_q04_body">"We suffer more in imagination than in reality." — Seneca</string>
+
+    <string name="insight_q05_title">Reflection</string>
+    <string name="insight_q05_body">Cravings are messengers, not commands. Notice the message; you don\'t have to obey.</string>
+
+    <string name="insight_q06_title">Reflection</string>
+    <string name="insight_q06_body">Discipline is choosing between what you want now and what you want most.</string>
+
+    <string name="insight_s01_title">Recovery science</string>
+    <string name="insight_s01_body">Without alcohol, REM sleep typically rebounds within the first two weeks — many people report dreaming vividly again.</string>
+
+    <string name="insight_s02_title">Recovery science</string>
+    <string name="insight_s02_body">Liver fat commonly starts reducing within two weeks of abstinence; enzyme markers like GGT often trend down within a month.</string>
+
+    <string name="insight_s03_title">Recovery science</string>
+    <string name="insight_s03_body">The brain\'s dopamine system typically takes 60–90 days to recalibrate after long-term drinking. Anhedonia in early weeks is common — and temporary.</string>
+
+    <string name="insight_s04_title">Recovery science</string>
+    <string name="insight_s04_body">Imaging studies often show measurable hippocampal recovery within a year of abstinence — short-term memory tends to improve along with it.</string>
+
+    <!-- PHASE_2 §9A5 — Journal hub row + read-side list screen. -->
+    <string name="journal_tab_evening_reviews_title">Evening reviews</string>
+    <string name="journal_tab_evening_reviews_count_singular">%1$d review</string>
+    <string name="journal_tab_evening_reviews_count_plural">%1$d reviews</string>
+    <string name="evening_reviews_list_title">Evening reviews</string>
+    <string name="evening_reviews_list_intro">Past evenings, newest first.</string>
+    <string name="evening_reviews_empty_title">Nothing yet.</string>
+    <string name="evening_reviews_empty_body">Reviews you save will land here, one per day.</string>
+    <string name="evening_reviews_row_win">Win — %1$s</string>
+    <string name="evening_reviews_row_challenge">Challenge — %1$s</string>
+    <string name="settings_baseline_saved">Baseline saved.</string>
+
+    <!-- Milestone letter-to-self. -->
+    <string name="milestone_letter_title">A note for %1$s from now.</string>
+    <string name="milestone_letter_body">Write something to the version of you who reaches the next milestone. Your future self will see this when they get there.</string>
+    <string name="milestone_letter_placeholder">What do you want them to know about today?</string>
+    <string name="milestone_letter_save">Save this note</string>
+    <string name="milestone_letter_cancel">Not now</string>
+
+    <!-- Home-screen surfaces for the letter. -->
+    <!-- PHASE_2 §9A3 — reflective framing instead of achievement-coded. The
+         original copy was "You reached X. / Leave yourself a note for the
+         next milestone." This softer pair reads less like a trophy screen. -->
+    <string name="home_letter_prompt_title">%1$s in.</string>
+    <string name="home_letter_prompt_body">Would you like to write to your day-1 self?</string>
+    <string name="home_letter_prompt_cta">Write a note</string>
+    <string name="home_letter_prompt_dismiss">Not now</string>
+    <string name="home_letter_reveal_title">A note from you, %1$s ago.</string>
+    <string name="home_letter_reveal_dismiss">Close</string>
+
+    <!-- Verify backup self-test. -->
+    <string name="settings_verify_backup">Verify my backup</string>
+    <string name="settings_verify_backup_sub">Round-trip a test export to confirm nothing\'s lost.</string>
+    <string name="settings_verify_running">Running self-test…</string>
+    <string name="settings_verify_ok">All %1$d records round-trip cleanly.</string>
+    <string name="settings_verify_mismatch">%1$d records didn\'t round-trip. Please report this.</string>
+
+    <!--
+        Journal bottom-nav tab + read-side hub.
+        Prefixed `journal_tab_` to avoid colliding with the older write-side
+        `journal_hub_*` keys above (used by ui/sos/JournalHubScreen.kt).
+    -->
+    <string name="nav_journal">Journal</string>
+    <string name="journal_tab_title">Journal</string>
+    <string name="journal_tab_intro">Re-read what you\'ve written. Patterns show up over time.</string>
+    <string name="journal_tab_section_review">Review</string>
+    <string name="journal_tab_section_write">Write something new</string>
+    <string name="journal_tab_loading">Loading…</string>
+    <string name="journal_tab_thought_checks_title">Thought checks</string>
+    <string name="journal_tab_thought_checks_count_singular">%1$d entry</string>
+    <string name="journal_tab_thought_checks_count_plural">%1$d entries</string>
+    <string name="journal_tab_entries_title">Free-writes</string>
+    <string name="journal_tab_entries_count_singular">%1$d entry</string>
+    <string name="journal_tab_entries_count_plural">%1$d entries</string>
+    <string name="journal_tab_write_thought_check">New thought check</string>
+    <string name="journal_tab_write_thought_check_sub">Four short prompts, one minute.</string>
+    <string name="journal_tab_write_freely">Write freely</string>
+    <string name="journal_tab_write_freely_sub">No prompts. Just a blank page.</string>
+
+    <!-- Thought Checks read-side list + detail. -->
+    <string name="thought_checks_list_title">Thought checks</string>
+    <string name="thought_checks_list_intro">Look back at the thoughts you\'ve worked through.</string>
+    <string name="thought_checks_all_count">All · %1$d</string>
+    <string name="thought_checks_group_label">%1$s · %2$d</string>
+    <string name="thought_checks_untagged">No pattern tagged</string>
+    <string name="thought_checks_empty_title">Nothing yet.</string>
+    <string name="thought_checks_empty_body">Next time a thought feels stuck, write it through — it\'ll land here.</string>
+    <!-- View-mode chips: grouped by cognitive-distortion tag vs. flat newest-first. -->
+    <string name="thought_checks_view_mode_by_pattern">By pattern</string>
+    <string name="thought_checks_view_mode_chronological">Chronological</string>
+    <string name="thought_check_detail_situation">What was happening</string>
+    <string name="thought_check_detail_thought">What you thought</string>
+    <string name="thought_check_detail_challenge">Is that 100% true?</string>
+    <string name="thought_check_detail_friend_reframe">What you\'d tell a friend</string>
+
+    <!-- Journal read-side list + detail. -->
+    <string name="journal_list_title">Free-writes</string>
+    <string name="journal_list_intro">Reverse-chronological. Search by any word.</string>
+    <string name="journal_search_placeholder">Search your writing…</string>
+    <string name="journal_search_clear">Clear search</string>
+    <string name="journal_search_no_matches">No entries match \"%1$s.\"</string>
+    <string name="journal_empty_title">Nothing yet.</string>
+    <string name="journal_empty_body">Blank-page writing lands here when you need to dump a head.</string>
+
+    <!-- Shared read-side copy. -->
+    <string name="common_back">Back</string>
+    <string name="detail_empty_field">(left blank)</string>
+    <string name="detail_not_found">That entry isn\'t available anymore.</string>
+
+    <!-- "On this day" anniversary card on Home. -->
+    <string name="home_on_this_day_title_thought">A thought from today</string>
+    <string name="home_on_this_day_title_journal">Something you wrote today</string>
+    <string name="home_on_this_day_months_ago">%1$d months ago</string>
+    <string name="home_on_this_day_open">Re-read</string>
+    <string name="home_on_this_day_dismiss">Not today</string>
+
+    <!-- Home-screen widget. -->
+    <string name="widget_name">Tidelet streak</string>
+    <string name="widget_description">Your current streak, on the home screen.</string>
+    <string name="widget_start_your_streak">Start your streak</string>
+    <string name="widget_streak_singular">%1$d day</string>
+    <string name="widget_streak_plural">%1$d days</string>
+</resources>

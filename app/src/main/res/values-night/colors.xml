@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Night-mode overrides for the streak widget. Matches the app's dark
+    palette: warm near-black surface, pale-sage ink, quiet border.
+-->
+<resources>
+    <color name="widget_background">#FF181A19</color>
+    <color name="widget_ink">#FFA3BEB0</color>
+    <color name="widget_border">#FF2A2D2A</color>
+
+    <!-- Splash mark — lighten ring to the dark-palette primary; soften dot. -->
+    <color name="splash_ring">#FFA3BEB0</color>
+    <color name="splash_dot">#FFD89482</color>
+</resources>

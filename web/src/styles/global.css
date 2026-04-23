@@ -1,0 +1,230 @@
+/* Base reset + typography defaults for the Tidelet landing page. */
+
+@import './tokens.css';
+
+/* Self-hosted fonts — drop .woff2 files into /web/public/fonts/ and uncomment.
+ *
+ * @font-face {
+ *   font-family: "Inter";
+ *   src: url("/fonts/inter-variable.woff2") format("woff2-variations");
+ *   font-weight: 100 900;
+ *   font-style: normal;
+ *   font-display: swap;
+ * }
+ *
+ * @font-face {
+ *   font-family: "Instrument Serif";
+ *   src: url("/fonts/instrument-serif-regular.woff2") format("woff2");
+ *   font-weight: 400;
+ *   font-style: normal;
+ *   font-display: swap;
+ * }
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: var(--leading-body);
+  color: var(--color-ink);
+  background: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: var(--leading-heading);
+}
+
+h1 { font-size: var(--text-4xl); }
+h2 { font-size: var(--text-2xl); }
+h3 { font-size: var(--text-xl); }
+h4 { font-size: var(--text-lg); }
+
+p {
+  max-width: 60ch;
+  color: var(--color-text-secondary);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-decoration-color: var(--color-border-emphasis);
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color 120ms ease;
+}
+
+a:hover {
+  text-decoration-color: var(--color-primary);
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Content grid — 24 px gutter on mobile, 48 px on desktop. Caps at 1120 px. */
+.container {
+  width: 100%;
+  max-width: 72rem; /* 1152px */
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+
+@media (min-width: 64rem) { /* 1024 px */
+  .container {
+    padding-inline: var(--space-12);
+  }
+  h1 { font-size: var(--text-5xl); }
+}
+
+/* Section rhythm. */
+section {
+  padding-block: var(--space-16);
+}
+
+/* Serif accent for hero headline + milestone moments. */
+.serif {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+/* Primary CTA — matches the app's pill button recipe. */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  min-height: 48px;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: var(--text-base);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 120ms ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  text-decoration: none;
+}
+
+.btn-primary::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background: var(--color-accent-warm);
+  border-radius: var(--radius-full);
+}
+
+/* Secondary pill — quieter affordances (e.g. FAQ links). */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-6);
+  min-height: 48px;
+  background: transparent;
+  color: var(--color-ink);
+  border: 1px solid var(--color-border-emphasis);
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: var(--text-base);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Card — 1 dp border, no shadow. Matches DESIGN_SYSTEM.md §8.4. */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+}
+
+/* Feature grid. */
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 48rem) { /* 768 px */
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 64rem) { /* 1024 px */
+  .feature-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* FAQ disclosure. */
+details {
+  border-top: 1px solid var(--color-border-subtle);
+  padding: var(--space-4) 0;
+}
+
+details[open] summary {
+  color: var(--color-primary);
+}
+
+summary {
+  cursor: pointer;
+  font-weight: 500;
+  font-size: var(--text-lg);
+  list-style: none;
+  position: relative;
+  padding-right: var(--space-6);
+  color: var(--color-ink);
+}
+
+summary::-webkit-details-marker { display: none; }
+
+summary::after {
+  content: "+";
+  position: absolute;
+  right: 0;
+  font-size: var(--text-xl);
+  line-height: 1;
+}
+
+details[open] summary::after {
+  content: "−";
+}
+
+details > p {
+  margin-top: var(--space-3);
+}
+
+/* Footer — small, muted, single line on desktop. */
+footer {
+  border-top: 1px solid var(--color-border-subtle);
+  padding-block: var(--space-6);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}

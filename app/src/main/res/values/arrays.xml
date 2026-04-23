@@ -1,0 +1,43 @@
+<resources>
+    <!--
+      Built-in distractions for the "Do something else" SOS tool.
+      These are evidence-tilted: short (2-15 minutes), easy to start, and
+      either raise arousal (cold water, walk), lower it (tea, shower), or
+      swap the craving for a different reward (food, call a friend).
+
+      The second group — starting at "Sparkling water..." — are non-alcoholic
+      substitute drinks ("mocktails" in the broadest sense). They rotate in
+      alongside the other activities because the Reframe benchmarking showed
+      substitute-drink suggestions are one of the most-used features in the
+      category, but as suggestions, not a recipe book.
+
+      Users will be able to add their own in Phase 2.
+    -->
+    <string-array name="builtin_distractions">
+        <item>Step outside for five minutes</item>
+        <item>Drink a tall glass of cold water</item>
+        <item>Take a shower, as hot or cold as feels right</item>
+        <item>Eat something — anything — even just a piece of fruit</item>
+        <item>Make a cup of tea, slowly</item>
+        <item>Wash your face with cold water</item>
+        <item>Call or text someone you trust</item>
+        <item>Put on one song you love and just listen</item>
+        <item>Do ten push-ups, or ten squats</item>
+        <item>Tidy one surface in your home</item>
+        <item>Take the dog out, or pet a pet</item>
+        <item>Watch something that reliably makes you laugh</item>
+        <item>Stretch for five minutes</item>
+        <item>Open a window and stand next to it</item>
+        <item>Write one sentence about how you\'re feeling</item>
+
+        <!-- Non-alcoholic substitute drinks — rotate in alongside the above. -->
+        <item>Sparkling water with a squeeze of lime, in a real glass</item>
+        <item>Hot chocolate, the slow kind with milk on the stove</item>
+        <item>Ginger beer over ice with a slice of cucumber</item>
+        <item>A fizzy kombucha, in a wine glass if you have one</item>
+        <item>Iced tea with lemon — brew it strong</item>
+        <item>A non-alcoholic beer, poured properly into a glass</item>
+        <item>Tart cherry juice with soda water and a twist of lemon</item>
+        <item>A proper espresso or slow pour-over coffee</item>
+    </string-array>
+</resources>

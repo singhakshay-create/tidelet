@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Used only by the pre-Compose XML theme below. Runtime UI uses the Kotlin Theme.kt tokens. -->
+    <color name="tidelet_teal">#FF2E5E7E</color>
+    <color name="tidelet_soft">#FFE8F1F5</color>
+    <color name="tidelet_black">#FF1B1F22</color>
+    <color name="tidelet_white">#FFFFFFFF</color>
+
+    <!--
+        Widget-only colours. Mirror the design-system tokens used by Compose
+        (Color.kt): warm-ivory background + deep-sage ink, with a subtle
+        border. See values-night/colors.xml for the dark-mode overrides.
+    -->
+    <color name="widget_background">#FFFBF9F5</color>
+    <color name="widget_ink">#FF2E3D35</color>
+    <color name="widget_border">#FFE8E4DB</color>
+
+    <!--
+        Splash-screen mark colours. Split out from the widget tokens because
+        the dark-mode override for the ring needs to flip to the pale-sage
+        dark-primary (the deep sage would vanish into the warm near-black
+        background). The terracotta dot is already high-contrast in both
+        modes but gets a slightly softer tone at night to match Color.kt.
+    -->
+    <color name="splash_ring">#FF2E3D35</color>
+    <color name="splash_dot">#FFC26B5A</color>
+</resources>

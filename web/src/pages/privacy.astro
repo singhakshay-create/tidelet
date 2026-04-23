@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Tidelet — Privacy policy" description="Tidelet does not collect any user data. Here's what that means.">
+  <section>
+    <div class="container narrow">
+      <h1>Privacy policy</h1>
+      <p><em>Last updated: 2026-04-19.</em></p>
+
+      <h2>The short version</h2>
+      <p>
+        Tidelet does not collect any data about you. It runs entirely on your
+        Android device, has no network permission, and talks to no servers.
+        Everything you write in the app stays on your phone.
+      </p>
+
+      <h2>What data Tidelet stores</h2>
+      <p>
+        Your streak start date, check-ins, journal entries, thought records,
+        reasons, and other notes are saved locally in an on-device database
+        and in Android's DataStore. This data never leaves the device unless
+        you explicitly export it yourself via Settings → Export.
+      </p>
+
+      <h2>What data Tidelet does NOT collect</h2>
+      <ul class="prose-list">
+        <li>No account, email address, or phone number.</li>
+        <li>No advertising identifier, device identifier, or location.</li>
+        <li>No analytics, crash reports, or telemetry of any kind.</li>
+        <li>No third-party SDKs, trackers, or pixels.</li>
+        <li>No network requests — the app does not request the Android
+          <code>INTERNET</code> permission.</li>
+      </ul>
+
+      <h2>Backups</h2>
+      <p>
+        The app sets <code>android:allowBackup="false"</code>, so your data is
+        not included in Google cloud backups. If you want a backup, export a
+        Markdown file and store it wherever you choose.
+      </p>
+
+      <h2>Children</h2>
+      <p>
+        Tidelet is intended for adults. We do not knowingly collect data from
+        anyone, including children, because we do not collect data from anyone.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions? <a href="mailto:support@tidelet.app">support@tidelet.app</a>
+      </p>
+    </div>
+  </section>
+</Base>
