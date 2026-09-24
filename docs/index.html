@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tidelet — Private Urge Surfing &amp; Sobriety Companion</title>
+  <meta name="description" content="An offline, private Android app for urge surfing, craving management, and sobriety tracking. No accounts, no backend, no analytics, and no network permissions.">
+  <meta name="theme-color" content="#FBF9F5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0F1110" media="(prefers-color-scheme: dark)">
+  
+  <!-- Progressive font loading: falls back cleanly to Georgia / system sans-serif if offline or blocked -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="site-header">
+    <div class="container nav-row">
+      <a href="index.html" class="site-logo" aria-label="Tidelet Home">
+        <span class="site-logo-text">Tidelet</span>
+      </a>
+      <nav aria-label="Main Navigation">
+        <ul class="site-nav">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#screenshots">Screenshots</a></li>
+          <li><a href="#privacy">Privacy</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="https://github.com/singhakshay-create/tidelet">Source</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div>
+          <div class="badge">
+            <span class="badge-dot" aria-hidden="true"></span>
+            <span>Version 0.1.0 &middot; Android</span>
+          </div>
+          <h1 class="hero-title">Ride the wave of a craving.</h1>
+          <p class="hero-lead">
+            Tidelet is a calm, local-only Android companion for urge surfing and sobriety. It gives you evidence-based tools when a craving hits and quiet tracking over time &mdash; completely offline, with no accounts, no cloud, and no analytics.
+          </p>
+
+          <div class="btn-group">
+            <!-- Absolute URL, not a relative path: GitHub Pages serves docs/ as the site root,
+                 so a relative "../../releases/latest" would try to escape the Pages domain
+                 entirely rather than reach github.com. Release/repo/license links must be
+                 full github.com URLs; only links to other pages inside docs/ can stay relative. -->
+            <a href="https://github.com/singhakshay-create/tidelet/releases/latest" class="btn btn-primary">Download Latest Release</a>
+            <a href="#features" class="btn btn-secondary">Explore Tools</a>
+          </div>
+
+          <p class="hero-meta">
+            Requires Android 8.0+ &middot; Free &amp; Open Source (GPL-3.0) &middot; Zero network permissions
+          </p>
+        </div>
+
+        <div>
+          <!-- Visual representation of the app's calm interface -->
+          <div class="hero-card" aria-label="Preview of Tidelet's Home screen interface">
+            <div class="hero-card-header">
+              <span class="hero-card-tag">Tidelet &middot; On-Device</span>
+              <span class="hero-card-status">100% Offline</span>
+            </div>
+
+            <div class="hero-counter-wrap">
+              <div class="hero-counter-num">14</div>
+              <div class="hero-counter-label">Days Sober</div>
+              <div class="hero-card-milestone">Next milestone: 30 days (16 days remaining)</div>
+            </div>
+
+            <div class="hero-card-sos">
+              <div class="hero-card-sos-title">Craving SOS Toolkit</div>
+              <div class="hero-card-sos-desc">Ride the Wave &middot; Box Breathing &middot; My Reasons &middot; Thought Check</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section">
+      <div class="container">
+        <div class="section-header centered">
+          <h2 class="section-title">Built for the hard moments and the steady days.</h2>
+          <p class="section-lead">
+            Every feature in Tidelet is grounded in cognitive behavioural therapy (CBT), Alan Marlatt's relapse-prevention framework, and urge surfing. All functionality runs entirely on your device.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <!-- Card 1: In the Moment -->
+          <article class="feature-card">
+            <div class="feature-card-eyebrow">Immediate Relief</div>
+            <h3 class="feature-card-title">In the Moment: Craving SOS</h3>
+            <p class="feature-card-desc">
+              Fast, focused tools designed to ground your nervous system and help you ride out an urge until it subsides.
+            </p>
+            <ul class="feature-list">
+              <li class="feature-item">
+                <strong>Ride the Wave:</strong> A 15-minute urge-surfing timer with an animated wave and your choice of ambient soundscapes (Ocean, River, Rain, or Silent).
+              </li>
+              <li class="feature-item">
+                <strong>Box Breathing:</strong> A 4-4-4-4 paced breathing exercise with cycle counting to settle autonomic arousal.
+              </li>
+              <li class="feature-item">
+                <strong>My Reasons:</strong> A personal, editable list of why you started, readily accessible when willpower feels thin.
+              </li>
+              <li class="feature-item">
+                <strong>Do Something Else:</strong> A curated catalog of healthy alternative actions with a "pick one for me" shuffle button.
+              </li>
+              <li class="feature-item">
+                <strong>Thought Check:</strong> A CBT-style thought-record tool to examine and dismantle craving-related thoughts in the moment.
+              </li>
+              <li class="feature-item">
+                <strong>Craving Journal:</strong> Free-form reflection space to write during or right after an urge.
+              </li>
+              <li class="feature-item">
+                <strong>Compassionate Reset:</strong> Log a slip ("I drank") without punishing language or shame. Your streak history and journal entries are never erased.
+              </li>
+            </ul>
+          </article>
+
+          <!-- Card 2: CBT Tools -->
+          <article class="feature-card">
+            <div class="feature-card-eyebrow">Cognitive Practice</div>
+            <h3 class="feature-card-title">Evidence-Based CBT Tools</h3>
+            <p class="feature-card-desc">
+              Structured exercises to identify automatic negative thoughts, build refusal skills, and prevent future slips.
+            </p>
+            <ul class="feature-list">
+              <li class="feature-item">
+                <strong>Cognitive Distortions Library:</strong> Learn to recognize common thought traps (such as all-or-nothing thinking or emotional reasoning) alongside targeted antidotes for each.
+              </li>
+              <li class="feature-item">
+                <strong>Refusal Rehearsal:</strong> Guided mental practice for firmly turning down drinks in social gatherings and high-pressure settings.
+              </li>
+              <li class="feature-item">
+                <strong>Relapse-Prevention Plan:</strong> Map out personal warning signs, high-risk situations, and step-by-step coping strategies before challenges arise.
+              </li>
+              <li class="feature-item">
+                <strong>Categorized Thought History:</strong> Browse previous thought records organized by distortion type to recognize recurring mental habits.
+              </li>
+            </ul>
+          </article>
+
+          <!-- Card 3: Tracking & Reflection -->
+          <article class="feature-card">
+            <div class="feature-card-eyebrow">Long-Term Progress</div>
+            <h3 class="feature-card-title">Tracking Your Progress</h3>
+            <p class="feature-card-desc">
+              Observe patterns over time with honest, non-judgmental tracking tools that respect your privacy.
+            </p>
+            <ul class="feature-list">
+              <li class="feature-item">
+                <strong>Day Counter &amp; Milestones:</strong> Track your current streak alongside clear progress toward your next milestone.
+              </li>
+              <li class="feature-item">
+                <strong>Daily Log &amp; Craving Heatmap:</strong> A daily check-in form with an intensity heatmap to discover your peak urge times and triggers.
+              </li>
+              <li class="feature-item">
+                <strong>Weekly Reflection &amp; Evening Reviews:</strong> Guided end-of-week reviews and evening check-ins to evaluate what worked and what felt difficult.
+              </li>
+              <li class="feature-item">
+                <strong>Milestone Letters:</strong> Write personal letters to your future self at milestones, locked until you reach the next stage of your journey.
+              </li>
+              <li class="feature-item">
+                <strong>Stats &amp; Health Timeline:</strong> View streak metrics and an evidence-backed timeline tracking physical and neurological recovery.
+              </li>
+              <li class="feature-item">
+                <strong>Home-Screen Widget:</strong> Keep your streak visible at a glance without having to open the app.
+              </li>
+            </ul>
+          </article>
+
+          <!-- Card 4: Local & In Your Control -->
+          <article class="feature-card">
+            <div class="feature-card-eyebrow">Privacy &amp; Control</div>
+            <h3 class="feature-card-title">Local &amp; in Your Control</h3>
+            <p class="feature-card-desc">
+              No accounts, no sync, no subscriptions. Everything you enter remains stored on your own physical phone.
+            </p>
+            <ul class="feature-list">
+              <li class="feature-item">
+                <strong>Zero Network Permissions:</strong> Tidelet requests no internet access in its Android manifest. It is technically incapable of sending data anywhere.
+              </li>
+              <li class="feature-item">
+                <strong>Customizable Baseline:</strong> Set your typical drinks per day and price to calculate money and time reclaimed, formatted in your local currency.
+              </li>
+              <li class="feature-item">
+                <strong>Full Data Export &amp; Verification:</strong> Export your data to human-readable files on your device with a one-tap backup integrity check.
+              </li>
+              <li class="feature-item">
+                <strong>Getting Started Guide:</strong> An in-app orientation walking you through each tool and its clinical foundation.
+              </li>
+              <li class="feature-item">
+                <strong>Community &amp; Crisis Resources:</strong> Direct shortcuts to helplines and peer groups (AA, SMART Recovery, Moderation Management, r/stopdrinking) via your phone's dialer or browser.
+              </li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section id="screenshots" class="section">
+      <div class="container">
+        <div class="section-header centered">
+          <h2 class="section-title">A quiet, distraction-free interface.</h2>
+          <p class="section-lead">
+            Designed to feel calm and unobtrusive when your nervous system is overwhelmed. No bright gamification badges, no social feeds, and no noisy push notifications.
+          </p>
+        </div>
+
+        <!-- NOTE: The screenshot image files referenced below (media/screenshot-*.png) do not exist yet in docs/media/ and need to be added before publishing this landing page. -->
+        <div class="screenshot-grid">
+          <!-- Screenshot 1 -->
+          <figure class="screenshot-card">
+            <div class="screenshot-placeholder-wrap">
+              <img src="media/screenshot-home.png" alt="Tidelet Home screen showing day counter, milestone progress, and SOS quick access" loading="lazy">
+              <svg class="screenshot-placeholder-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                <line x1="12" y1="18" x2="12.01" y2="18"></line>
+              </svg>
+              <div class="screenshot-placeholder-label">Home &amp; Day Counter</div>
+              <div class="screenshot-placeholder-sub">media/screenshot-home.png</div>
+            </div>
+            <figcaption class="screenshot-caption">
+              <div class="screenshot-name">Home &amp; Day Counter</div>
+              <div class="screenshot-detail">Day counter with progress toward the next milestone and instant access to the SOS toolkit.</div>
+            </figcaption>
+          </figure>
+
+          <!-- Screenshot 2 -->
+          <figure class="screenshot-card">
+            <div class="screenshot-placeholder-wrap">
+              <img src="media/screenshot-wave.png" alt="Ride the Wave urge-surfing timer with animated wave and ambient soundscape selection" loading="lazy">
+              <svg class="screenshot-placeholder-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M2 12c2.5 0 2.5-3 5-3s2.5 3 5 3 2.5-3 5-3 2.5 3 5 3"></path>
+              </svg>
+              <div class="screenshot-placeholder-label">Ride the Wave</div>
+              <div class="screenshot-placeholder-sub">media/screenshot-wave.png</div>
+            </div>
+            <figcaption class="screenshot-caption">
+              <div class="screenshot-name">Ride the Wave</div>
+              <div class="screenshot-detail">15-minute urge-surfing timer featuring an animated wave and looping natural audio soundscapes.</div>
+            </figcaption>
+          </figure>
+
+          <!-- Screenshot 3 -->
+          <figure class="screenshot-card">
+            <div class="screenshot-placeholder-wrap">
+              <img src="media/screenshot-breathe.png" alt="Box breathing exercise with 4-4-4-4 rhythm and cycle counter" loading="lazy">
+              <svg class="screenshot-placeholder-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 7v5l3 3"></path>
+              </svg>
+              <div class="screenshot-placeholder-label">Box Breathing</div>
+              <div class="screenshot-placeholder-sub">media/screenshot-breathe.png</div>
+            </div>
+            <figcaption class="screenshot-caption">
+              <div class="screenshot-name">Breathe</div>
+              <div class="screenshot-detail">4-4-4-4 box-breathing exercise with cycle counting for rapid autonomic grounding.</div>
+            </figcaption>
+          </figure>
+
+          <!-- Screenshot 4 -->
+          <figure class="screenshot-card">
+            <div class="screenshot-placeholder-wrap">
+              <img src="media/screenshot-cbt.png" alt="Cognitive distortions library with thought check reframes and antidotes" loading="lazy">
+              <svg class="screenshot-placeholder-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+              </svg>
+              <div class="screenshot-placeholder-label">CBT Thought Check</div>
+              <div class="screenshot-placeholder-sub">media/screenshot-cbt.png</div>
+            </div>
+            <figcaption class="screenshot-caption">
+              <div class="screenshot-name">Thought Check &amp; CBT Tools</div>
+              <div class="screenshot-detail">Examine and challenge craving thoughts using a cognitive-distortions library and antidotes.</div>
+            </figcaption>
+          </figure>
+
+          <!-- Screenshot 5 -->
+          <figure class="screenshot-card">
+            <div class="screenshot-placeholder-wrap">
+              <img src="media/screenshot-log.png" alt="Daily check-in form and craving intensity heatmap" loading="lazy">
+              <svg class="screenshot-placeholder-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              <div class="screenshot-placeholder-label">Log &amp; Craving Heatmap</div>
+              <div class="screenshot-placeholder-sub">media/screenshot-log.png</div>
+            </div>
+            <figcaption class="screenshot-caption">
+              <div class="screenshot-name">Log &amp; Craving Heatmap</div>
+              <div class="screenshot-detail">Daily check-in records alongside a visual heatmap to recognize timing trends over weeks.</div>
+            </figcaption>
+          </figure>
+
+          <!-- Screenshot 6 -->
+          <figure class="screenshot-card">
+            <div class="screenshot-placeholder-wrap">
+              <img src="media/screenshot-stats.png" alt="Streak statistics and health recovery timeline" loading="lazy">
+              <svg class="screenshot-placeholder-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+              </svg>
+              <div class="screenshot-placeholder-label">Stats &amp; Recovery Timeline</div>
+              <div class="screenshot-placeholder-sub">media/screenshot-stats.png</div>
+            </div>
+            <figcaption class="screenshot-caption">
+              <div class="screenshot-name">Stats &amp; Health Timeline</div>
+              <div class="screenshot-detail">Streak analytics and an evidence-based timeline tracking physical and mental restoration.</div>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Privacy Summary Section -->
+    <section id="privacy" class="section">
+      <div class="container">
+        <div class="section-header centered">
+          <h2 class="section-title">Privacy is an architecture, not a policy.</h2>
+          <p class="section-lead">
+            Most "private" wellness apps mean "we encrypt what we collect." Tidelet does not collect anything in the first place.
+          </p>
+        </div>
+
+        <div class="privacy-grid">
+          <div>
+            <div class="privacy-point">
+              <span class="privacy-point-mark" aria-hidden="true">&bull;</span>
+              <p class="privacy-point-text">
+                <strong>No backend server:</strong> Tidelet doesn't talk to the internet at all.
+              </p>
+            </div>
+            <div class="privacy-point">
+              <span class="privacy-point-mark" aria-hidden="true">&bull;</span>
+              <p class="privacy-point-text">
+                <strong>No user accounts:</strong> Nobody signs up, nobody logs in, and no personal email or identity is requested.
+              </p>
+            </div>
+            <div class="privacy-point">
+              <span class="privacy-point-mark" aria-hidden="true">&bull;</span>
+              <p class="privacy-point-text">
+                <strong>No analytics or telemetry:</strong> Nothing about how you use the app is measured, recorded, or sent anywhere.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <div class="privacy-point">
+              <span class="privacy-point-mark" aria-hidden="true">&bull;</span>
+              <p class="privacy-point-text">
+                <strong>No ad SDKs:</strong> Tidelet doesn't show ads and doesn't embed any ad or tracking libraries.
+              </p>
+            </div>
+            <div class="privacy-point">
+              <span class="privacy-point-mark" aria-hidden="true">&bull;</span>
+              <p class="privacy-point-text">
+                <strong>Zero network permissions:</strong> The Android app requests no network-related permissions &mdash; it is technically incapable of making a network call. You can verify this in <code>app/src/main/AndroidManifest.xml</code> in the source code; there is no <code>INTERNET</code> permission declared.
+              </p>
+            </div>
+            <div class="privacy-point">
+              <span class="privacy-point-mark" aria-hidden="true">&bull;</span>
+              <p class="privacy-point-text">
+                <a href="privacy.html"><strong>Read the full Privacy Policy &rarr;</strong></a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Crisis Resources & Disclaimer Banner -->
+        <aside class="crisis-box" aria-labelledby="crisis-heading">
+          <h3 id="crisis-heading" class="crisis-box-title">Not Medical Advice &amp; Crisis Resources</h3>
+          <p class="crisis-box-text">
+            Tidelet is a self-help tool for managing cravings and tracking your own progress. It is not a medical device, it does not provide medical advice, diagnosis, or treatment, and it is not a substitute for professional care. If you are struggling, please reach out to a real person:
+          </p>
+          <ul class="crisis-box-contacts">
+            <li class="crisis-contact-item">
+              <strong>US:</strong> call or text <strong>988</strong> (Suicide &amp; Crisis Lifeline), or call the <strong>SAMHSA National Helpline</strong> at <strong>1-800-662-4357</strong> (free, confidential, 24/7).
+            </li>
+            <li class="crisis-contact-item">
+              <strong>Outside the US:</strong> please look up your local crisis line or emergency number &mdash; Tidelet's Resources screen lists a few country-specific helplines, but if yours isn't listed, a quick search for "[your country] crisis line" or "[your country] suicide prevention helpline" will get you there.
+            </li>
+            <li class="crisis-contact-item">
+              If you are in immediate danger, contact your local emergency services.
+            </li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <div class="footer-legal">
+        <p>&copy; 2026 Tidelet contributors &middot; Licensed under <a href="https://github.com/singhakshay-create/tidelet/blob/main/LICENSE">GNU GPL-3.0</a>.</p>
+        <p>Built for privacy. Fully offline on Android.</p>
+      </div>
+      <ul class="footer-nav">
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="https://github.com/singhakshay-create/tidelet/blob/main/LICENSE">GPL-3.0 License</a></li>
+        <li><a href="https://github.com/singhakshay-create/tidelet">View source on GitHub</a></li>
+        <li><a href="https://github.com/singhakshay-create/tidelet/releases/latest">Download</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

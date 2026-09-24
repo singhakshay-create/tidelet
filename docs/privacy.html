@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Tidelet</title>
+  <meta name="description" content="Tidelet's full privacy policy. Fully offline on-device app with no accounts, no backend, no analytics, and no network permissions.">
+  <meta name="theme-color" content="#FBF9F5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0F1110" media="(prefers-color-scheme: dark)">
+
+  <!-- Progressive font loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="site-header">
+    <div class="container nav-row">
+      <a href="index.html" class="site-logo" aria-label="Tidelet Home">
+        <span class="site-logo-text">Tidelet</span>
+      </a>
+      <nav aria-label="Navigation">
+        <ul class="site-nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#features">Features</a></li>
+          <li><a href="index.html#screenshots">Screenshots</a></li>
+          <li><a href="https://github.com/singhakshay-create/tidelet">Source</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="prose container-prose">
+      <a href="index.html" class="back-link">&larr; Back to Tidelet</a>
+
+      <h1>Privacy Policy</h1>
+      <div class="policy-meta">Last updated: 2026-09-24</div>
+
+      <p>
+        Tidelet is built to be used privately, without giving up any data about you or your drinking. This page explains exactly what that means.
+      </p>
+
+      <h2>The short version</h2>
+      <ul>
+        <li>There is no backend server. Tidelet doesn't talk to the internet at all.</li>
+        <li>There are no user accounts. Nobody signs up, nobody logs in.</li>
+        <li>There is no analytics and no telemetry. Nothing about how you use the app is measured, recorded, or sent anywhere.</li>
+        <li>There are no ad SDKs. Tidelet doesn't show ads and doesn't embed any ad or tracking libraries.</li>
+        <li>The Android app requests no network-related permissions &mdash; it is not capable of making a network call. Check <code>app/src/main/AndroidManifest.xml</code> in the source code yourself; there's no <code>INTERNET</code> permission declared.</li>
+      </ul>
+
+      <h2>Where your data lives</h2>
+      <p>
+        Everything you enter into Tidelet &mdash; your streak start date, craving check-ins, journal entries, thought records, and any other notes &mdash; is stored locally on your device, in a local database (Room/SQLite) and local preferences storage. None of it is copied anywhere else, because the app has no way to copy it anywhere else.
+      </p>
+      <p>
+        If you uninstall the app or clear its data, that data is gone. If you want a copy for yourself, use the export feature in Settings, which writes a file to your own device &mdash; Tidelet never uploads it.
+      </p>
+
+      <h2>What Tidelet does not do</h2>
+      <ul>
+        <li>It does not collect your name, email, location, or any identifying information.</li>
+        <li>It does not use device identifiers, advertising IDs, or fingerprinting.</li>
+        <li>It does not share, sell, or transmit your data to any third party, because it never transmits data anywhere.</li>
+        <li>It does not use cookies or any web-based tracking (it's not a website).</li>
+      </ul>
+
+      <h2>Links to outside resources</h2>
+      <p>
+        Tidelet's Resources screen links out to external organizations and helplines (for example crisis lines, Alcoholics Anonymous, and SMART Recovery) and can dial a phone number for you when you tap one. Tapping these opens your device's browser or dialer &mdash; Tidelet itself is not making a network request, and once you leave the app, that outside site or service has its own privacy practices, which this policy doesn't cover.
+      </p>
+
+      <h2>Not medical advice</h2>
+      <p>
+        Tidelet is a self-help tool for managing cravings and tracking your own progress. It is not a medical device, it does not provide medical advice, diagnosis, or treatment, and it is not a substitute for professional care. If you are struggling, please reach out to a real person:
+      </p>
+      <ul>
+        <li><strong>US:</strong> call or text <strong>988</strong> (Suicide &amp; Crisis Lifeline), or call the <strong>SAMHSA National Helpline</strong> at <strong>1-800-662-4357</strong> (free, confidential, 24/7).</li>
+        <li><strong>Outside the US:</strong> please look up your local crisis line or emergency number &mdash; Tidelet's Resources screen lists a few country-specific helplines, but if yours isn't listed, a quick search for "[your country] crisis line" or "[your country] suicide prevention helpline" will get you there.</li>
+      </ul>
+      <p>
+        If you are in immediate danger, contact your local emergency services.
+      </p>
+
+      <h2>Changes to this policy</h2>
+      <p>
+        If Tidelet's data practices ever change (for example, if a future version adds an optional, clearly-disclosed feature that requires network access), this document will be updated alongside that change, and the changelog will note it. As of this version, the app is and has always been fully offline.
+      </p>
+
+      <h2>Questions</h2>
+      <p>
+        Tidelet is a small, open-source project. If you have questions about this policy, please open an issue on the project's <a href="https://github.com/singhakshay-create/tidelet">GitHub repository</a>.
+      </p>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <div class="footer-legal">
+        <p>&copy; 2026 Tidelet contributors &middot; Licensed under <a href="https://github.com/singhakshay-create/tidelet/blob/main/LICENSE">GNU GPL-3.0</a>.</p>
+        <p>Built for privacy. Fully offline on Android.</p>
+      </div>
+      <ul class="footer-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="https://github.com/singhakshay-create/tidelet/blob/main/LICENSE">GPL-3.0 License</a></li>
+        <li><a href="https://github.com/singhakshay-create/tidelet">View source on GitHub</a></li>
+        <li><a href="https://github.com/singhakshay-create/tidelet/releases/latest">Download</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
