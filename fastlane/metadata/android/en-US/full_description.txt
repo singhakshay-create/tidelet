@@ -1,0 +1,41 @@
+Tidelet is an offline, local-only Android companion for urge surfing, craving management, and sobriety tracking.
+
+Urge surfing is based on the insight that cravings resemble ocean waves: they rise, crest, and naturally subside. Rather than fighting or attempting to suppress a craving, Tidelet provides practical, in-the-moment tools to help you ride the wave until it passes.
+
+Features
+
+Craving SOS Toolkit:
+- Ride the Wave: A 15-minute urge-surfing timer with an animated wave and optional ambient soundscapes (Ocean, River, Rain, or Silent).
+- Breathe: A 4-4-4-4 box-breathing exercise with cycle counting to help regulate your nervous system.
+- My Reasons: A personal, editable list of motivations to reread in difficult moments.
+- Do Something Else: A curated catalog of healthy distraction ideas with a random shuffle button.
+- Thought Check: A CBT-style thought record for examining and reframing craving thoughts in real time.
+- Journal: Free-form writing to process thoughts and feelings during or after an urge.
+- Compassionate Reset: Log slips honestly without punitive language, streak resets, or erasing past history.
+
+Tracking and Reflection:
+- Home: Sobriety day counter showing elapsed time and progress toward your next milestone.
+- Daily Log: Daily check-in form and craving heatmap to observe patterns over time.
+- Weekly Reflection: A guided end-of-week review of your progress and triggers.
+- Milestone Letters: Write letters to your future self at key milestones, unlocked to reread at later ones.
+- Journal History: Review past thought records (grouped by cognitive distortion), journal entries, and evening reviews.
+
+CBT Tools and Stats:
+- Cognitive Distortions Library: Common thinking patterns that drive cravings, paired with practical antidotes.
+- Drink-Refusal Rehearsal: Practice pre-written and custom refusal responses for social pressure.
+- Relapse-Prevention Plan: Record high-risk situations, warning signs, and concrete coping plans.
+- Statistics: Streak stats, an evidence-based health and recovery timeline, and money saved based on your custom baseline.
+- Home-Screen Widget: Displays your current sobriety streak directly on your home screen.
+- Resources: Direct links to crisis helplines and peer recovery communities, opened through your device's dialer or browser.
+
+Private and Offline by Design
+Tidelet does not have user accounts, logins, analytics, telemetry, or advertising SDKs. It has no backend server and requests zero network permissions in its Android manifest, making it technically incapable of transmitting your data over the internet. Everything you enter—check-ins, journal entries, and settings—stays strictly on your device. You can export or import your data at any time through the built-in backup tools with backup verification.
+
+Disclaimer
+Tidelet is a self-help tool for managing cravings and tracking personal progress. It is not a medical device, does not provide medical advice, diagnosis, or treatment, and is not a substitute for professional healthcare.
+
+If you are struggling or in distress, please reach out to professional support:
+- In the US: Call or text 988 (Suicide & Crisis Lifeline) or call the SAMHSA National Helpline at 1-800-662-4357.
+- Outside the US: Search for your local emergency number or crisis helpline.
+
+If you are in immediate danger, contact your local emergency services.
