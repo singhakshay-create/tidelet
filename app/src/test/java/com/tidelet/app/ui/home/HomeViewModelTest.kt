@@ -155,7 +155,8 @@ class HomeViewModelTest {
 
             var next = awaitItem()
             while (next.onThisDay != null) next = awaitItem()
-            assertThat(next.onThisDay).isNull()
+            val dismissed: OnThisDayItem? = next.onThisDay
+            assertThat(dismissed).isNull()
             cancelAndIgnoreRemainingEvents()
         }
     }
