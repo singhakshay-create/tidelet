@@ -10,7 +10,7 @@ Tidelet is an offline, local-only Android companion for urge surfing—helping y
 <!-- Screenshots need to be captured from a running device or emulator before launch -->
 | Home | Ride the Wave | Box Breathing | Daily Log & Heatmap | Stats & Recovery |
 | :---: | :---: | :---: | :---: | :---: |
-| ![Home](docs/media/screenshot-home.png) | ![Ride the Wave](docs/media/screenshot-sos-wave.png) | ![Breathe](docs/media/screenshot-sos-breathe.png) | ![Daily Log](docs/media/screenshot-log.png) | ![Stats](docs/media/screenshot-stats.png) |
+| ![Home](docs/media/screenshot-home.png) | ![Ride the Wave](docs/media/screenshot-wave.png) | ![Breathe](docs/media/screenshot-breathe.png) | ![Daily Log](docs/media/screenshot-log.png) | ![Stats](docs/media/screenshot-stats.png) |
 
 ## Features
 
