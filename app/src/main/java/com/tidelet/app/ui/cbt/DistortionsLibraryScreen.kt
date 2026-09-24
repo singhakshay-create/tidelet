@@ -97,9 +97,9 @@ private fun DistortionEntry(distortion: Distortion) {
             style = MaterialTheme.typography.bodyLarge,
             color = TideletTheme.extended.textSecondary,
         )
-        // Example in quotes + italic
+        // Example in italic \u2014 the string resources already include their own quotes.
         Text(
-            text = "\u201c" + stringResource(distortion.exampleRes) + "\u201d",
+            text = stringResource(distortion.exampleRes),
             style = MaterialTheme.typography.bodyLarge.copy(fontStyle = FontStyle.Italic),
             color = TideletTheme.extended.textMuted,
         )
