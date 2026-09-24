@@ -1,0 +1,13 @@
+# Normalize line endings so the Gradle wrapper scripts stay runnable
+# regardless of a contributor's git autocrlf setting.
+* text=auto eol=lf
+*.bat text eol=crlf
+gradlew text eol=lf
+
+# Binary files — never line-ending-convert these.
+*.jar binary
+gradle-wrapper.jar binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
