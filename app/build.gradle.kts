@@ -2,12 +2,47 @@
 // This is where we declare the app's configuration (package, SDK versions, signing, etc.)
 // and the libraries the app depends on.
 
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
 }
+
+// --- Release signing credentials -----------------------------------------------------
+// Android requires a release build (the APK/AAB you'd upload to the Play Store) to be
+// cryptographically signed, so installs/updates can be verified as coming from the same
+// developer; debug builds skip this and use an auto-generated, non-secret debug key instead.
+//
+// Credentials are read from environment variables first (CI-friendly), falling back to a
+// local `keystore.properties` file at the repo root (handy on a dev machine). Neither source
+// is ever committed: keystore.properties, *.jks, and *.keystore are all gitignored, and no
+// value read here is printed or logged.
+val keystorePropsFile = rootProject.file("keystore.properties")
+val keystoreProps = Properties().apply {
+    if (keystorePropsFile.exists()) {
+        keystorePropsFile.inputStream().use { load(it) }
+    }
+}
+
+fun releaseSigningValue(envVar: String, propertyKey: String): String? {
+    val fromEnv = System.getenv(envVar)
+    if (!fromEnv.isNullOrBlank()) return fromEnv
+    return keystoreProps.getProperty(propertyKey)?.takeIf { it.isNotBlank() }
+}
+
+val releaseStoreFilePath = releaseSigningValue("TIDELET_KEYSTORE_PATH", "storeFile")
+val releaseStorePassword = releaseSigningValue("TIDELET_KEYSTORE_PASSWORD", "storePassword")
+val releaseKeyAlias = releaseSigningValue("TIDELET_KEY_ALIAS", "keyAlias")
+val releaseKeyPassword = releaseSigningValue("TIDELET_KEY_PASSWORD", "keyPassword")
+
+// Only true once every credential was actually found (env vars and/or keystore.properties).
+val hasReleaseSigningCredentials = releaseStoreFilePath != null &&
+    releaseStorePassword != null &&
+    releaseKeyAlias != null &&
+    releaseKeyPassword != null
 
 android {
     namespace = "com.tidelet.app"
@@ -31,6 +66,22 @@ android {
         getByName("androidTest").java.srcDir("src/sharedTest/java")
     }
 
+    signingConfigs {
+        // A signingConfig bundles the keystore file + credentials Gradle signs a release
+        // build with. Only created when credentials were actually found above, so this
+        // stays absent for contributors/CI runs that just build debug.
+        if (hasReleaseSigningCredentials) {
+            create("release") {
+                storeFile = file(releaseStoreFilePath!!)
+                storePassword = releaseStorePassword
+                // keyAlias picks which key inside the keystore to sign with (a keystore can
+                // hold more than one); keyPassword unlocks that specific key.
+                keyAlias = releaseKeyAlias
+                keyPassword = releaseKeyPassword
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -38,6 +89,14 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+            // Leave signingConfig unset if no credentials were found, rather than failing
+            // Gradle's configuration phase — that keeps `./gradlew assembleDebug` (and CI)
+            // working for anyone without a keystore set up. `assembleRelease`/`bundleRelease`
+            // will still fail without it, but with Android's own clear "signing config
+            // required" error, not a cryptic NPE or missing-file crash.
+            if (hasReleaseSigningCredentials) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
         debug {
             // Use the debug applicationId suffix so a debug build can coexist with a release build.
