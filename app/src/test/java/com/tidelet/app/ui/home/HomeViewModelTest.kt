@@ -81,7 +81,11 @@ class HomeViewModelTest {
         val vm = HomeViewModel(app, clock = FixedClocks.atLocalMidnight(sunday, zone))
 
         vm.state.test {
-            val s = awaitItem()
+            // The first emission is stateIn's placeholder (card defaults to
+            // false); drain until the derived state arrives. Turbine's timeout
+            // still fails the test if the card never turns on.
+            var s = awaitItem()
+            while (!s.showWeeklyReflectionCard) s = awaitItem()
             assertThat(s.showWeeklyReflectionCard).isTrue()
             cancelAndIgnoreRemainingEvents()
         }

@@ -3,6 +3,7 @@ package com.tidelet.app.util
 import com.google.common.truth.Truth.assertThat
 import com.tidelet.app.fakes.FakeTideletRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import java.time.LocalDate
@@ -41,10 +42,9 @@ class ValidationTest {
 
         repo.addRefusalPhrase("\t\n ")
 
-        // No state change: the phrases list stays empty.
-        val after = mutableListOf<Int>()
-        repo.refusalPhrases.collect { after += it.size; return@collect }
-        assertThat(after.first()).isEqualTo(0)
+        // No state change: the phrases list stays empty. first() takes one
+        // value and stops; collect {} on this hot flow would never return.
+        assertThat(repo.refusalPhrases.first()).isEmpty()
     }
 
     @Test

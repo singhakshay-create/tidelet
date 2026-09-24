@@ -3,6 +3,7 @@ package com.tidelet.app.widget
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
+import com.tidelet.app.testutil.TestTideletApplication
 import com.tidelet.app.util.StreakDuration
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -13,9 +14,13 @@ import org.robolectric.annotation.Config
  * Pure-function coverage for [streakWidgetText]. Runs under Robolectric
  * only so we can resolve the string resources — no widget / RemoteViews
  * plumbing is involved.
+ *
+ * Uses [TestTideletApplication] (same as every other Robolectric test here)
+ * so the real [com.tidelet.app.TideletApplication.onCreate] doesn't schedule
+ * the WorkManager widget-refresh worker against an uninitialized WorkManager.
  */
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [34])
+@Config(application = TestTideletApplication::class, sdk = [34])
 class StreakWidgetTextTest {
 
     private val context: Context = ApplicationProvider.getApplicationContext()
