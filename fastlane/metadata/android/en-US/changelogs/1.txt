@@ -1,0 +1,6 @@
+Initial pre-release (v0.1.0). Tidelet is local-only with no accounts, ads, or tracking.
+
+- Craving SOS: 15-min urge-surfing timer with ambient soundscapes, box breathing, My Reasons, distraction ideas, and CBT thought records.
+- Tracking: Day counter, daily check-in, craving heatmap, weekly reflection, and milestone letters.
+- CBT & Stats: Distortions library, refusal rehearsal, relapse-prevention plan, recovery timeline, and streak widget.
+- Full local backup export/import.

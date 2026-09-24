@@ -1,105 +1,114 @@
 # Tidelet
 
-A quiet Android companion for the moments between drinks. Phase 1 ships a craving SOS toolkit and a sobriety day counter — all on-device, no account, no network.
+<!-- Demo GIF placeholder: record from a running device/emulator and add to docs/media/demo.gif before launch (file does not exist yet) -->
+![Tidelet demo](docs/media/demo.gif)
 
-## Status
+Tidelet is an offline, local-only Android companion for urge surfing—helping you ride the wave of a craving until it passes, rather than fighting it.
 
-Phase 1 scaffold. Everything compiles and runs end-to-end: onboarding → home with day counter → SOS flow with four tools:
+## Screenshots
 
-- **Ride the wave** — 15-min urge-surfing timer with an animated wave and a choice of ambient soundscapes (Ocean / River / Rain / Silent).
-- **Breathe** — 4-4-4-4 box breathing circle with cycle count.
-- **My reasons** — the user's own "why I'm doing this" list, read in the hard moments, written in the calm ones. Backed by Room.
-- **Do something else** — a curated list of 15 quick alternatives, plus a "Pick one for me" shuffle button.
+<!-- Screenshots need to be captured from a running device or emulator before launch -->
+| Home | Ride the Wave | Box Breathing | Daily Log & Heatmap | Stats & Recovery |
+| :---: | :---: | :---: | :---: | :---: |
+| ![Home](docs/media/screenshot-home.png) | ![Ride the Wave](docs/media/screenshot-sos-wave.png) | ![Breathe](docs/media/screenshot-sos-breathe.png) | ![Daily Log](docs/media/screenshot-log.png) | ![Stats](docs/media/screenshot-stats.png) |
 
-Log / Stats / Settings tabs are deliberate placeholders for Phase 2.
+## Features
 
-## Requirements
+### Craving SOS toolkit
+- **Ride the Wave**: A 15-minute urge-surfing timer featuring an animated wave and selectable ambient soundscapes (Ocean, River, Rain, or Silent).
+- **Breathe**: A 4-4-4-4 box-breathing exercise with cycle counting.
+- **My Reasons**: A personal, editable list of motivations to reread in difficult moments.
+- **Do Something Else**: A curated list of distraction activities with a random shuffle picker.
+- **Thought Check**: A CBT-style thought-record tool for examining craving-related thoughts in the moment.
+- **Journal**: Free-form writing during or after an urge.
+- **Compassionate Reset**: Logs a slip ("I drank") without reset penalties, loss of past entries, or judgmental language.
 
-- **Android Studio** Ladybug (2024.2) or newer — earlier versions won't understand Kotlin 2.1 / AGP 8.7.
-- **JDK 17** (Android Studio bundles it; just point File → Project Structure → SDK Location → Gradle JDK at the bundled one).
-- **Android SDK 35** (the IDE will offer to install it on first sync).
-- Emulator or device running **Android 8.0 (API 26) or higher**.
+### Tracking and reflection
+- **Home**: Day counter tracking elapsed sobriety and progress toward the next milestone, with quick access to SOS tools.
+- **Daily Log**: Daily check-in form and craving heatmap to observe patterns over time.
+- **Weekly Reflection**: A guided end-of-week check-in.
+- **Milestone Letters**: Write letters to your future self at milestones, unlocked to reread at later ones.
+- **Journal History**: Read-only browsing of past Thought Checks (categorized by cognitive distortion), journal entries, and evening reviews.
 
-## First-time setup
+### CBT and recovery tools
+- **Cognitive Distortions Library**: Catalog of common thinking traps with practical antidotes for each.
+- **Drink-Refusal Rehearsal**: Practice pre-written and custom refusal responses for social pressure.
+- **Relapse-Prevention Plan**: Identify high-risk situations, early warning signs, and concrete coping plans.
 
-1. **Open the project.** `File → Open…` and pick the `Tidelet/` folder (the one with `settings.gradle.kts`). Let Android Studio do its initial indexing.
+### Stats and settings
+- **Statistics**: Streak metrics and an evidence-based health and recovery timeline.
+- **Drinking Baseline & Savings**: Calculate money saved based on a customizable baseline of typical drinks per day and beverage price, formatted in local currency.
+- **Home-Screen Widget**: Displays your current sobriety streak directly on your home screen.
+- **Data Export & Import**: Full on-device JSON data backup and restore, including a one-tap "verify my backup" self-check.
+- **Community & Crisis Resources**: Direct dialer and browser links to crisis helplines and peer communities (Alcoholics Anonymous, SMART Recovery, Moderation Management, r/stopdrinking).
+- **Getting Started Guide**: An in-app guide explaining the tools and how to apply them.
 
-2. **Generate the Gradle wrapper jar.** The repo ships `gradle/wrapper/gradle-wrapper.properties` but not the `gradle-wrapper.jar` binary. Before the first Gradle sync, open the Android Studio terminal and run:
+### What's next
+- **Check-in Reminders**: Scheduled daily local notifications prompting a check-in.
+- **Cut-Back / Moderation Mode**: A dedicated goal mode for users aiming to reduce alcohol consumption rather than quit entirely.
 
-   ```
-   gradle wrapper --gradle-version 8.11.1
-   ```
+## Privacy
 
-   If you don't have a system `gradle` on your PATH, the easiest alternative is to let Android Studio do it: close the project, run `File → New → Import Project…` and point it at the folder — the IDE will scaffold the wrapper. (If the IDE instead uses its bundled Gradle, that's fine too; the wrapper is a convenience, not a hard requirement for IDE builds.)
+Tidelet has no backend server, no user accounts, no analytics or telemetry, and no ad SDKs. The app requests no network permissions in its Android manifest (`AndroidManifest.xml`), making it technically incapable of making a network call. All streak dates, check-ins, journal entries, and thought records remain strictly on your device in local storage. For complete details, see [PRIVACY.md](PRIVACY.md).
 
-3. **Sync Gradle.** Accept the prompt when it appears, or `File → Sync Project with Gradle Files`. First sync will download AGP, Kotlin, Compose BOM, Room, and friends — give it a few minutes.
+## Download
 
-4. **Run.** Pick an emulator (or plug in a device with USB debugging on), hit the green ▶. The app launches straight into onboarding on first run.
+Pre-built APKs are available on the [GitHub Releases page](https://github.com/singhakshay-create/tidelet/releases/latest). GitHub's Releases feature isn't part of the repo's file tree, so it needs a full URL rather than a relative link.
 
-## Code map
+Download the APK attached to the latest release and install it on an Android device running Android 8.0 (API 26) or higher.
+
+## Build from source
+
+Requirements: Android Studio (recent stable version), JDK 17, and Android SDK 35.
+
+To clone the repository and compile the debug APK:
+
+```bash
+git clone https://github.com/singhakshay-create/tidelet.git
+cd tidelet
+./gradlew assembleDebug
+```
+
+The debug APK will be created at `app/build/outputs/apk/debug/app-debug.apk`. For project setup details, running tests, and development guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Project structure
 
 ```
-Tidelet/
-├─ settings.gradle.kts              # Version catalog + :app module
-├─ build.gradle.kts                 # Root build (plugin versions only)
-├─ gradle/libs.versions.toml        # Single source of truth for all library versions
-└─ app/
-   ├─ build.gradle.kts              # applicationId com.tidelet.app
-   └─ src/main/
-      ├─ AndroidManifest.xml        # Single activity, no runtime permissions
-      ├─ res/
-      │  ├─ values/                 # strings, arrays, colors, themes
-      │  ├─ raw/                    # ocean.mp3, river.mp3, rain.mp3 (looping ambience, Pixabay CC0)
-      │  └─ …                       # launcher icons, backup rules
-      └─ java/com/tidelet/app/
-         ├─ TideletApplication.kt   # Manual DI — exposes .repository
-         ├─ MainActivity.kt         # Onboarded? → TideletApp() (Scaffold + NavHost)
-         ├─ data/
-         │  ├─ db/                  # Room: CheckIn, CravingEvent, Reason, DAOs, database
-         │  ├─ prefs/               # DataStore Preferences — UserProfile
-         │  └─ repo/                # TideletRepository — the one thing UI talks to
-         ├─ util/Time.kt            # streakFromStartDate + milestone helpers
-         └─ ui/
-            ├─ theme/               # Material 3 + TideletExtendedColors (SOS warm tones)
-            ├─ nav/                 # Routes object — all nav destinations
-            ├─ onboarding/          # 3-step flow, writes to DataStore
-            ├─ home/                # Day counter + next-milestone progress + SOS button
-            ├─ sos/                 # SosScreen grid + RideTheWave + Breathe + Reasons + Distractions
-            ├─ log/                 # Phase 2 stub
-            ├─ stats/                # Phase 2 stub
-            └─ settings/             # Phase 2 stub
+app/src/main/
+├── AndroidManifest.xml        # Single activity and widget; requests zero network permissions
+├── res/                       # UI layouts, strings, themes, and raw ambient audio recordings
+└── java/com/tidelet/app/
+    ├── TideletApplication.kt   # Manual dependency injection exposing TideletRepository
+    ├── MainActivity.kt         # Entry activity hosting Compose navigation
+    ├── data/
+    │   ├── db/                # Room database, DAOs, and entities (CheckIn, CravingEvent, Reason, etc.)
+    │   ├── prefs/             # DataStore Preferences for user settings and streak start date
+    │   └── repo/              # TideletRepository managing data coordination
+    ├── ui/
+    │   ├── theme/             # Material 3 theme and extended color tokens
+    │   ├── nav/               # Navigation routes and destinations
+    │   ├── home/              # Day counter, milestone progress, companion cards
+    │   ├── sos/               # SOS tools: Ride the Wave, Breathe, Reasons, Distractions, Thought Check
+    │   ├── log/               # Daily check-in form and craving heatmap
+    │   ├── journal/           # Journal entries, thought checks by distortion, evening reviews
+    │   ├── stats/             # Streak statistics and health/recovery timeline
+    │   ├── settings/          # Baseline settings, data export/import, backup verification
+    │   ├── milestones/        # Milestone letters to future self
+    │   ├── resources/         # Crisis lines and recovery community links
+    │   └── weekly/            # Guided weekly reflection form
+    └── widget/                # Home-screen streak widget provider and refresh worker
 ```
 
-## Design decisions worth knowing
+## Disclaimer
 
-- **No Hilt.** Manual DI through `TideletApplication.repository` — fewer moving parts while you're learning. If complexity grows we can add Hilt later without rewriting screens.
-- **Room with `fallbackToDestructiveMigration()`.** Schema churn is fine in Phase 1; we'll add real migrations once we have users. Don't ship this flag. DB version is currently 2 (bumped when we added the `Reason` entity).
-- **No network permission.** `AndroidManifest.xml` requests nothing. Data is on-device by design, and `allowBackup=false` keeps it out of Google cloud backups.
-- **Compassionate reset.** If the user slips, "I drank" just logs a `CravingEvent` with outcome `DRANK` — it doesn't punish or zero out their history. Reset is a deliberate action in Settings (Phase 2).
-- **Extended color tokens.** `TideletTheme.extended.sosSurface` / `sosAccent` give the SOS flow a warmer palette than the rest of the app. Access via `CompositionLocal` — see `ui/theme/Theme.kt`.
-- **Ambient audio is real field recordings, not synthesis.** Ocean / River / Rain loops in `app/src/main/res/raw/` are MP3s sourced from Pixabay under the [Pixabay Content License](https://pixabay.com/service/license-summary/) (CC0-equivalent: royalty-free commercial use, no attribution required). Attributions are recorded anyway in `app/src/main/assets/soundscape_credits.md`. An earlier version of this app shipped procedurally-generated noise loops; they sounded synthetic enough to break the "calm" framing of Ride the Wave, so we swapped them for real recordings. `MediaPlayer.setLooping(true)` handles loop continuity — the tracks aren't hand-crossfaded, but they're long enough (30s–3min) that the seam is inaudible during a 15-minute wave.
-- **No crisis/help screen.** The earlier version shipped a "Call for help" tile with 988 / SAMHSA / 911. It has been removed by choice for this build.
+Tidelet is a self-help tool for managing cravings and tracking your own progress. It is not a medical device, it does not provide medical advice, diagnosis, or treatment, and it is not a substitute for professional care.
 
-## Running the happy path
+If you are struggling or in distress, please reach out to professional support:
+- **US:** Call or text **988** (Suicide & Crisis Lifeline), or call the **SAMHSA National Helpline** at **1-800-662-4357** (free, confidential, 24/7).
+- **Outside the US:** Please look up your local crisis line or emergency number (search for "[your country] crisis line" or "[your country] suicide prevention helpline").
 
-1. Launch → onboarding → pick "Today" → finish.
-2. Home shows "0 days" with hours/minutes ticking up.
-3. Tap **I'm having a craving** → SOS grid (four tiles).
-4. **Ride the wave** → 15-min timer with animated wave, soundscape picker (Ocean / River / Rain / Silent), rotating calm lines → after timer, "how did that go?" outcome question logs a `CravingEvent`.
-5. **Breathe** → 4-4-4-4 box breathing circle with cycle count.
-6. **My reasons** → add a reason via the composer; existing reasons render as cards; on dispose we log a `CravingEvent` if any were read.
-7. **Do something else** → curated list of 15 alternatives, shuffle button picks one and scrolls it into view, "I did it" / "Nothing worked" logs an outcome.
+If you are in immediate danger, contact your local emergency services.
 
-## Phase 2 backlog (not yet built)
+## License
 
-- Log tab: daily check-in form, retroactive edits to start date.
-- Stats tab: milestones, money saved, hours reclaimed, craving-pattern insights.
-- Settings tab: compassionate reset, check-in reminder time, My Reasons + Distractions editors, data export/wipe.
-- Notifications via WorkManager (dep is already in the catalog).
-
-## Troubleshooting
-
-- **"SDK 35 not installed"** — SDK Manager → Android SDK → install "Android 15.0 (API 35)".
-- **"JDK 17 required"** — Project Structure → SDK Location → Gradle JDK → pick the JBR 17 bundled with Android Studio.
-- **Gradle sync fails on wrapper jar** — see step 2 above; run `gradle wrapper --gradle-version 8.11.1` once.
-- **KSP complains about Room** — stop the Gradle daemon (`./gradlew --stop`) and re-sync; stale cache issue.
+This program is free software licensed under the GNU General Public License v3.0 (GPL-3.0). See [LICENSE](LICENSE) for details.
