@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
+import com.tidelet.app.data.db.CheckIn
 import com.tidelet.app.data.db.CravingEvent
 import com.tidelet.app.data.db.CravingOutcome
 import com.tidelet.app.data.db.SosToolKey
@@ -88,6 +89,19 @@ object DemoDataSeeder {
         // so the app opens straight to Home instead of the onboarding flow.
         repository.completeOnboarding(startDate)
 
+        // A realistic drinking baseline (3 drinks/day at 200.00 per drink, in
+        // minor units) so the Stats "money saved" tile shows a believable
+        // figure instead of the app's placeholder default. Same call the
+        // Settings screen uses to save a baseline.
+        repository.restoreProfile(
+            startDateEpochDay = null,
+            typicalDrinksPerDay = 3,
+            priceCentsPerDrink = 20_000,
+            checkInReminderEnabled = null,
+            checkInReminderHour = null,
+            checkInReminderMinute = null,
+        )
+
         // A handful of plausible craving/urge log entries spread across the
         // 23-day streak, with varied tools, outcomes, and intensities.
         val demoCravings = listOf(
@@ -109,6 +123,25 @@ object DemoDataSeeder {
                     tool = demo.tool,
                     outcome = demo.outcome,
                     intensity = demo.intensity,
+                ),
+            )
+        }
+
+        // Daily drink-free check-ins for every past day of the streak, so the
+        // Log list and the Stats "drink-free days" / "money saved" tiles agree
+        // with the 23-day counter. Two days are skipped (people miss days) and
+        // today is left open so the "Check in for today" prompt still shows.
+        val skippedDayOffsets = setOf(4L, 13L)
+        val moods = listOf(3, 4, 4, 3, 5, 4, 3, 4, 5, 4)
+        for (offset in 0L until 23L) {
+            if (offset in skippedDayOffsets) continue
+            val date = startDate.plusDays(offset)
+            repository.importCheckIn(
+                CheckIn(
+                    date = date.toString(),
+                    didDrink = false,
+                    mood = moods[(offset % moods.size).toInt()],
+                    createdAtEpochMillis = date.atTime(21, 0).atZone(zone).toInstant().toEpochMilli(),
                 ),
             )
         }
