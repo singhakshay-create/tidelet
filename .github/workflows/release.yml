@@ -20,11 +20,13 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Set up JDK 17
+      # gradle/gradle-daemon-jvm.properties pins the Gradle daemon to JetBrains JDK 21
+      # (the JDK bundled with Android Studio); the app itself still targets Java 17.
+      - name: Set up JDK 21 (JetBrains)
         uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
-          distribution: temurin
-          java-version: "17"
+          distribution: jetbrains
+          java-version: "21"
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@67621b124fd2e251c5e8a0e6e3b91318f2287669 # v6.3.0
