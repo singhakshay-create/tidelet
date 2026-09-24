@@ -39,6 +39,16 @@ open class TideletApplication : Application() {
         if (shouldScheduleWidgetRefresh()) {
             StreakWidgetRefreshWorker.schedule(this)
         }
+
+        // Debug-only: populate a demo 23-day streak + a few craving logs so
+        // a debug build shows a populated app (screenshots, reviewers).
+        // BuildConfig.DEBUG is a compile-time constant AGP generates per
+        // build type (true for debug, false for release) — this is a
+        // belt-and-suspenders guard on top of DemoDataSeeder itself being a
+        // no-op in release builds (see app/src/release/.../DemoDataSeeder.kt).
+        if (BuildConfig.DEBUG) {
+            DemoDataSeeder.seedIfNeeded(this, repository)
+        }
     }
 
     /**

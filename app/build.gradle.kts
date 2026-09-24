@@ -115,6 +115,10 @@ android {
 
     buildFeatures {
         compose = true
+        // AGP 8+ no longer generates BuildConfig by default — opt in so
+        // BuildConfig.DEBUG exists (used to gate the debug-only demo data
+        // seeder; see TideletApplication.onCreate()).
+        buildConfig = true
     }
 
     packaging {
