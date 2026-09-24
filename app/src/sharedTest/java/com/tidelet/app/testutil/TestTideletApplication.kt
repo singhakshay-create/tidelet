@@ -32,4 +32,7 @@ class TestTideletApplication : TideletApplication() {
 
     /** Skip the widget-refresh WorkManager schedule in tests — not needed. */
     override fun shouldScheduleWidgetRefresh(): Boolean = false
+
+    /** Skip demo-data seeding in tests — the fake repository is the fixture. */
+    override fun shouldSeedDemoData(): Boolean = false
 }

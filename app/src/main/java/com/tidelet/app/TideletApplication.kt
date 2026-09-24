@@ -46,7 +46,12 @@ open class TideletApplication : Application() {
         // build type (true for debug, false for release) — this is a
         // belt-and-suspenders guard on top of DemoDataSeeder itself being a
         // no-op in release builds (see app/src/release/.../DemoDataSeeder.kt).
-        if (BuildConfig.DEBUG) {
+        // Also guarded by shouldSeedDemoData() (same pattern as the widget
+        // worker below) since BuildConfig.DEBUG is true for unit tests too —
+        // a Robolectric test shouldn't have a background coroutine writing
+        // demo data during app startup, on principle, even though it turned
+        // out not to be the cause of any specific test failure.
+        if (BuildConfig.DEBUG && shouldSeedDemoData()) {
             DemoDataSeeder.seedIfNeeded(this, repository)
         }
     }
@@ -56,4 +61,11 @@ open class TideletApplication : Application() {
      * don't need a periodic worker firing during the test run.
      */
     protected open fun shouldScheduleWidgetRefresh(): Boolean = true
+
+    /**
+     * Override in test subclasses to skip demo-data seeding — tests supply
+     * their own fake/fixture data and shouldn't race against a background
+     * coroutine writing to a real DataStore during app startup.
+     */
+    protected open fun shouldSeedDemoData(): Boolean = true
 }
