@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Button
@@ -66,6 +67,7 @@ import kotlin.math.sin
 fun RideTheWaveScreen(
     onDone: () -> Unit,
     onDrankFlow: () -> Unit = onDone,
+    intensity: Int? = null,
     vm: RideTheWaveViewModel = viewModel(),
 ) {
     val state by vm.state.collectAsStateWithLifecycle()
@@ -105,18 +107,13 @@ fun RideTheWaveScreen(
                 } else {
                     WaveDone(
                         onGotThrough = {
-                            vm.logGotThrough()
-                            // Wait for showAnalysisPanel to flip true via
-                            // the state flow — the when() above will pick
-                            // it up on the next recomposition.
+                            vm.logGotThrough(intensity)
                         },
                         onStillStruggling = {
-                            vm.logStillStruggling()
+                            vm.logStillStruggling(intensity)
                         },
                         onDrank = {
-                            // DRANK does not open the analysis panel here;
-                            // the Compassionate Reset screen handles that.
-                            vm.logDrank()
+                            vm.logDrank(intensity)
                             onDrankFlow()
                         },
                     )
@@ -137,6 +134,7 @@ private fun WaveAnalysisStep(
         modifier = Modifier
             .fillMaxSize()
             .androidxCompatVerticalScroll(scrollState)
+            .imePadding()
             .padding(24.dp)
             .testTag("wave_analysis_panel"),
         verticalArrangement = androidx.compose.foundation.layout.Arrangement.Center,

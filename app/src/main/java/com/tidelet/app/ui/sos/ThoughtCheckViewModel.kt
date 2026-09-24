@@ -42,10 +42,8 @@ class ThoughtCheckViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
-    fun save() {
+    fun save(intensity: Int? = null) {
         val s = _state.value
-        // At minimum we require something in the "thought" field — everything
-        // else can be blank. Saving an empty check would be noise.
         if (s.thought.isBlank()) return
 
         viewModelScope.launch {
@@ -60,16 +58,18 @@ class ThoughtCheckViewModel(application: Application) : AndroidViewModel(applica
             repo.logCravingEvent(
                 tool = SosToolKey.THOUGHT_CHECK,
                 outcome = CravingOutcome.GOT_THROUGH,
+                intensity = intensity,
             )
             _state.update { it.copy(saved = true) }
         }
     }
 
-    fun skip() {
+    fun skip(intensity: Int? = null) {
         viewModelScope.launch {
             repo.logCravingEvent(
                 tool = SosToolKey.THOUGHT_CHECK,
                 outcome = CravingOutcome.STILL_STRUGGLING,
+                intensity = intensity,
             )
         }
     }

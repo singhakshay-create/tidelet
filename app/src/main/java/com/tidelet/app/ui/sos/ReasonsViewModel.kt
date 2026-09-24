@@ -47,12 +47,13 @@ class ReasonsViewModel(application: Application) : AndroidViewModel(application)
      * often each tool actually helped. If they arrived and left without any
      * reasons in the list we skip the log (there was nothing to read).
      */
-    fun logViewed(hadReasons: Boolean) {
+    fun logViewed(hadReasons: Boolean, intensity: Int? = null) {
         if (!hadReasons) return
         viewModelScope.launch {
             repo.logCravingEvent(
                 tool = SosToolKey.REASONS,
                 outcome = CravingOutcome.GOT_THROUGH,
+                intensity = intensity,
             )
         }
     }

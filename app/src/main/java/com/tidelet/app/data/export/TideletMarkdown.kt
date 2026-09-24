@@ -120,6 +120,7 @@ object TideletMarkdown {
                     field("timestamp", row.timestampEpochMillis)
                     field("tool", row.tool)
                     field("outcome", row.outcome)
+                    row.intensity?.let { field("intensity", it) }
                 }
             }
         }
@@ -428,12 +429,10 @@ object TideletMarkdown {
         val tool = body.stringOrNull("tool") ?: return null
         val outcome = body.stringOrNull("outcome") ?: return null
         return CravingEvent(
-            // We drop the original id — Room will auto-assign a new one on insert.
-            // Analyses that referenced the old id won't re-link, but that's a
-            // deliberate simplification for v1.
             timestampEpochMillis = body.longOrNull("timestamp") ?: System.currentTimeMillis(),
             tool = tool,
             outcome = outcome,
+            intensity = body.intOrNull("intensity"),
         )
     }
 

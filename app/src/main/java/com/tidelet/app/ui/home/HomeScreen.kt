@@ -2,6 +2,8 @@ package com.tidelet.app.ui.home
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -55,6 +57,7 @@ fun HomeScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
+            .verticalScroll(rememberScrollState())
             .padding(horizontal = Spacing.s6, vertical = Spacing.s6),
     ) {
         // ---- Compassionate visual companion (PHASE_2 §9B1) ----
@@ -208,8 +211,7 @@ fun HomeScreen(
             InsightCardView(card = card, onDismiss = { vm.dismissInsightCard() })
         }
 
-        // Fill the space above the SOS button
-        Spacer(Modifier.weight(1f))
+        Spacer(Modifier.height(24.dp))
 
         // ---- SOS button — outlined pill with a small terracotta dot. Quieter
         //      than a solid coral slab; reads as "friend on call" not "DANGER".

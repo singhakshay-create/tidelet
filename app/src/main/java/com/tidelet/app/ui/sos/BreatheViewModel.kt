@@ -24,11 +24,12 @@ class BreatheViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch { repo.recordToolOpen(SosToolKey.BREATHE) }
     }
 
-    fun logCompleted() {
+    fun logCompleted(intensity: Int? = null) {
         viewModelScope.launch {
             repo.logCravingEvent(
                 tool = SosToolKey.BREATHE,
                 outcome = CravingOutcome.GOT_THROUGH,
+                intensity = intensity,
             )
         }
     }

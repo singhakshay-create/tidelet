@@ -24,12 +24,16 @@ class DistractionsViewModel(application: Application) : AndroidViewModel(applica
         viewModelScope.launch { repo.recordToolOpen(SosToolKey.DISTRACTIONS) }
     }
 
-    fun logDidIt() = log(CravingOutcome.GOT_THROUGH)
-    fun logNothingWorked() = log(CravingOutcome.STILL_STRUGGLING)
+    fun logDidIt(intensity: Int? = null) = log(CravingOutcome.GOT_THROUGH, intensity)
+    fun logNothingWorked(intensity: Int? = null) = log(CravingOutcome.STILL_STRUGGLING, intensity)
 
-    private fun log(outcome: String) {
+    private fun log(outcome: String, intensity: Int? = null) {
         viewModelScope.launch {
-            repo.logCravingEvent(tool = SosToolKey.DISTRACTIONS, outcome = outcome)
+            repo.logCravingEvent(
+                tool = SosToolKey.DISTRACTIONS,
+                outcome = outcome,
+                intensity = intensity,
+            )
         }
     }
 }

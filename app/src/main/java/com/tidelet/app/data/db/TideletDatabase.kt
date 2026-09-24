@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 
 /**
  * The single Room database for the app.
@@ -33,7 +35,7 @@ import androidx.room.RoomDatabase
         // Phase 2 §9B2
         InsightCardShown::class,
     ],
-    version = 9,
+    version = 10,
     exportSchema = true,
 )
 abstract class TideletDatabase : RoomDatabase() {
@@ -57,13 +59,19 @@ abstract class TideletDatabase : RoomDatabase() {
     companion object {
         @Volatile private var INSTANCE: TideletDatabase? = null
 
+        val MIGRATION_9_10 = object : Migration(9, 10) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE craving_event ADD COLUMN intensity INTEGER DEFAULT NULL")
+            }
+        }
+
         fun get(context: Context): TideletDatabase = INSTANCE ?: synchronized(this) {
             INSTANCE ?: Room.databaseBuilder(
                 context.applicationContext,
                 TideletDatabase::class.java,
                 "tidelet.db",
             )
-                // Safe during early development. Replace with proper Migrations once shipped.
+                .addMigrations(MIGRATION_9_10)
                 .fallbackToDestructiveMigration()
                 .build()
                 .also { INSTANCE = it }

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -64,6 +65,7 @@ import com.tidelet.app.ui.theme.TideletTheme
 @Composable
 fun ReasonsScreen(
     onBack: () -> Unit,
+    intensity: Int? = null,
     vm: ReasonsViewModel = viewModel(),
 ) {
     val reasons by vm.reasons.collectAsStateWithLifecycle()
@@ -76,7 +78,7 @@ fun ReasonsScreen(
     if (reasons.isNotEmpty()) sawReasons = true
 
     DisposableEffect(Unit) {
-        onDispose { vm.logViewed(hadReasons = sawReasons) }
+        onDispose { vm.logViewed(hadReasons = sawReasons, intensity = intensity) }
     }
 
     var draft by remember { mutableStateOf("") }
@@ -103,6 +105,7 @@ fun ReasonsScreen(
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
+                .imePadding()
                 .background(warmSurface)
                 .padding(horizontal = 20.dp),
         ) {

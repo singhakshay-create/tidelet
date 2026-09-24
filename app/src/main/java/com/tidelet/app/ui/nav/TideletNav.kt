@@ -121,4 +121,10 @@ object Routes {
 
     /** Read-only list of past evening reviews. Reached from the Journal hub. */
     const val JOURNAL_EVENING_REVIEWS = "journal/evening-reviews"
+
+    /** Curated crisis lines, communities, and further reading. Reached from Settings. */
+    const val RESOURCES = "resources"
+
+    /** Quick getting-started guide. Reached from Settings and onboarding. */
+    const val GETTING_STARTED = "getting-started"
 }

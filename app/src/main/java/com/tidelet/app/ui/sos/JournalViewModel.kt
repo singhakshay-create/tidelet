@@ -42,7 +42,7 @@ class JournalViewModel(application: Application) : AndroidViewModel(application)
      * text (prevents a tap on Save from logging a blank row — the screen
      * disables the button in that case too, but we belt-and-brace).
      */
-    fun save() {
+    fun save(intensity: Int? = null) {
         val text = _state.value.text.trim()
         if (text.isEmpty()) return
         viewModelScope.launch {
@@ -50,20 +50,18 @@ class JournalViewModel(application: Application) : AndroidViewModel(application)
             repo.logCravingEvent(
                 tool = SosToolKey.JOURNAL,
                 outcome = CravingOutcome.GOT_THROUGH,
+                intensity = intensity,
             )
             _state.update { it.copy(saved = true) }
         }
     }
 
-    /**
-     * User bailed out of writing. Log STILL_STRUGGLING so the stats dashboard
-     * can later show this rung didn't land. No entry is written.
-     */
-    fun skip() {
+    fun skip(intensity: Int? = null) {
         viewModelScope.launch {
             repo.logCravingEvent(
                 tool = SosToolKey.JOURNAL,
                 outcome = CravingOutcome.STILL_STRUGGLING,
+                intensity = intensity,
             )
         }
     }

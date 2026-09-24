@@ -120,14 +120,14 @@ class FakeTideletRepository : TideletRepository {
 
     override val cravingEvents: Flow<List<CravingEvent>> = _cravingEvents.asStateFlow()
 
-    override suspend fun logCravingEvent(tool: String, outcome: String) {
-        logCravingEventReturningId(tool, outcome)
+    override suspend fun logCravingEvent(tool: String, outcome: String, intensity: Int?) {
+        logCravingEventReturningId(tool, outcome, intensity)
     }
 
-    override suspend fun logCravingEventReturningId(tool: String, outcome: String): Long {
+    override suspend fun logCravingEventReturningId(tool: String, outcome: String, intensity: Int?): Long {
         recordedCravings += LoggedCraving(tool, outcome)
         val id = idSeq.incrementAndGet()
-        _cravingEvents.update { it + CravingEvent(id = id, tool = tool, outcome = outcome) }
+        _cravingEvents.update { it + CravingEvent(id = id, tool = tool, outcome = outcome, intensity = intensity) }
         return id
     }
 

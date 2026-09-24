@@ -16,6 +16,8 @@ data class CravingEvent(
     val tool: String,
     /** Outcome after the tool finished. See [CravingOutcome]. */
     val outcome: String,
+    /** Optional 1–10 intensity captured at SOS entry. Null = not captured. */
+    val intensity: Int? = null,
 )
 
 /** Stable string keys for SOS tools — Room stores them as text for readability. */

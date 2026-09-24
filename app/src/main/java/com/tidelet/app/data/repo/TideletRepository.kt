@@ -58,8 +58,8 @@ interface TideletRepository {
 
     // ---- Craving events ----
     val cravingEvents: Flow<List<CravingEvent>>
-    suspend fun logCravingEvent(tool: String, outcome: String)
-    suspend fun logCravingEventReturningId(tool: String, outcome: String): Long
+    suspend fun logCravingEvent(tool: String, outcome: String, intensity: Int? = null)
+    suspend fun logCravingEventReturningId(tool: String, outcome: String, intensity: Int? = null): Long
     suspend fun importCravingEvent(event: CravingEvent): Long
 
     // ---- Reasons ----
@@ -251,12 +251,12 @@ class RoomTideletRepository(
 
     override val cravingEvents: Flow<List<CravingEvent>> = cravingEventDao.observeAll()
 
-    override suspend fun logCravingEvent(tool: String, outcome: String) {
-        cravingEventDao.insert(CravingEvent(tool = tool, outcome = outcome))
+    override suspend fun logCravingEvent(tool: String, outcome: String, intensity: Int?) {
+        cravingEventDao.insert(CravingEvent(tool = tool, outcome = outcome, intensity = intensity))
     }
 
-    override suspend fun logCravingEventReturningId(tool: String, outcome: String): Long =
-        cravingEventDao.insert(CravingEvent(tool = tool, outcome = outcome))
+    override suspend fun logCravingEventReturningId(tool: String, outcome: String, intensity: Int?): Long =
+        cravingEventDao.insert(CravingEvent(tool = tool, outcome = outcome, intensity = intensity))
 
     override suspend fun importCravingEvent(event: CravingEvent): Long =
         cravingEventDao.insert(event)

@@ -16,14 +16,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -35,6 +35,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -42,8 +43,15 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.tidelet.app.R
+import com.tidelet.app.data.db.CravingEvent
+import com.tidelet.app.data.db.CravingOutcome
+import com.tidelet.app.data.db.SosToolKey
+import com.tidelet.app.ui.theme.ErrorRed
+import com.tidelet.app.ui.theme.SuccessGreen
 import com.tidelet.app.ui.theme.TideletTheme
+import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
@@ -65,6 +73,8 @@ fun LogScreen(
     vm: LogViewModel = viewModel(),
 ) {
     val state by vm.state.collectAsStateWithLifecycle()
+    val heatmapData by vm.heatmapData.collectAsStateWithLifecycle()
+    val selectedDay by vm.selectedDay.collectAsStateWithLifecycle()
     val today = LocalDate.now()
 
     Scaffold(
@@ -80,6 +90,32 @@ fun LogScreen(
         ) {
             Spacer(Modifier.height(8.dp))
 
+            if (heatmapData.isNotEmpty()) {
+                CravingHeatmapCard(
+                    data = heatmapData,
+                    selectedDay = selectedDay,
+                    onSelectDay = vm::selectDay,
+                )
+                Spacer(Modifier.height(16.dp))
+                HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.outlineVariant)
+                Spacer(Modifier.height(16.dp))
+            }
+
+            val currentSelection = selectedDay
+            if (currentSelection != null) {
+                val summary = heatmapData[currentSelection]
+                if (summary != null) {
+                    SelectedDayDetail(
+                        day = currentSelection,
+                        summary = summary,
+                        onClear = { vm.selectDay(null) },
+                    )
+                    Spacer(Modifier.height(16.dp))
+                    HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.outlineVariant)
+                    Spacer(Modifier.height(16.dp))
+                }
+            }
+
             TodayCard(
                 row = state.today,
                 onCheckIn = { onOpenCheckIn(today) },
@@ -87,15 +123,21 @@ fun LogScreen(
 
             Spacer(Modifier.height(16.dp))
 
-            if (state.history.isEmpty() && state.today == null) {
+            val displayHistory = if (currentSelection != null) {
+                state.history.filter { it.date == currentSelection }
+            } else {
+                state.history
+            }
+
+            if (displayHistory.isEmpty() && state.today == null && currentSelection == null) {
                 EmptyLog(modifier = Modifier.fillMaxSize())
-            } else if (state.history.isNotEmpty()) {
+            } else if (displayHistory.isNotEmpty()) {
                 LazyColumn(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     contentPadding = PaddingValues(bottom = 24.dp),
                 ) {
-                    items(state.history, key = { it.date.toString() }) { row ->
+                    items(displayHistory, key = { it.date.toString() }) { row ->
                         HistoryRow(row = row, onClick = { onOpenCheckIn(row.date) })
                     }
                 }
@@ -111,16 +153,17 @@ private fun TodayCard(
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(20.dp),
+        shape = RectangleShape,
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            containerColor = MaterialTheme.colorScheme.surface,
         ),
+        border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
             Text(
                 text = stringResource(R.string.log_today_label),
                 style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                color = MaterialTheme.colorScheme.primary,
             )
             Spacer(Modifier.height(8.dp))
 
@@ -128,6 +171,7 @@ private fun TodayCard(
                 Button(
                     onClick = onCheckIn,
                     modifier = Modifier.fillMaxWidth(),
+                    shape = RectangleShape,
                 ) { Text(stringResource(R.string.log_check_in_today)) }
             } else {
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -178,17 +222,18 @@ private fun HistoryRow(row: LogRow, onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick),
-        shape = RoundedCornerShape(14.dp),
+        shape = RectangleShape,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface,
         ),
+        border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
     ) {
         Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = row.date.prettyLabel(),
-                    style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.SemiBold,
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.weight(1f),
                 )
                 row.mood?.let { MoodIndicator(mood = it) }
@@ -211,28 +256,26 @@ private fun HistoryRow(row: LogRow, onClick: () -> Unit) {
 /** Little chip-ish label showing drink-free vs. drank-N for a row. */
 @Composable
 private fun StatusPill(row: LogRow) {
-    val bg: Color
     val fg: Color
     val label: String
     if (!row.didDrink) {
-        bg = TideletTheme.extended.success.copy(alpha = 0.16f)
-        fg = TideletTheme.extended.success
+        fg = SuccessGreen
         label = stringResource(R.string.log_entry_drink_free)
     } else {
-        bg = MaterialTheme.colorScheme.errorContainer
-        fg = MaterialTheme.colorScheme.onErrorContainer
+        fg = ErrorRed
         label = row.drinkCount?.let { stringResource(R.string.log_entry_drank, it) }
             ?: stringResource(R.string.log_entry_drank_unknown)
     }
     Surface(
-        color = bg,
-        shape = RoundedCornerShape(999.dp),
+        color = Color.Transparent,
+        shape = RectangleShape,
+        border = androidx.compose.foundation.BorderStroke(1.dp, fg.copy(alpha = 0.5f))
     ) {
         Text(
             text = label,
-            style = MaterialTheme.typography.labelMedium,
+            style = MaterialTheme.typography.labelSmall,
             color = fg,
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
         )
     }
 }
@@ -252,13 +295,13 @@ private fun MoodIndicator(mood: Int) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Box(
             modifier = Modifier
-                .size(8.dp)
-                .background(tint, CircleShape),
+                .size(6.dp)
+                .background(tint, RectangleShape),
         )
         Spacer(Modifier.width(6.dp))
         Text(
             text = stringResource(moodLabelRes),
-            style = MaterialTheme.typography.labelMedium,
+            style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
     }
@@ -282,6 +325,105 @@ private fun EmptyLog(modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
+            )
+        }
+    }
+}
+
+@Composable
+private fun SelectedDayDetail(
+    day: LocalDate,
+    summary: DayCravingSummary,
+    onClear: () -> Unit,
+) {
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RectangleShape,
+        border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
+        color = Color.Transparent
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    text = "[REF: DATA_POINT_ANALYSIS]",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.secondary,
+                    modifier = Modifier.align(Alignment.TopStart)
+                )
+                Text(
+                    text = "CLOSE →",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.secondary,
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .clickable(onClick = onClear),
+                )
+            }
+            Spacer(Modifier.height(12.dp))
+            Text(
+                text = day.prettyLabel().uppercase(),
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.primary,
+            )
+            Spacer(Modifier.height(4.dp))
+            Text(
+                text = stringResource(R.string.heatmap_day_count, summary.count),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            summary.events.forEach { event ->
+                Spacer(Modifier.height(8.dp))
+                CravingEventRow(event)
+            }
+        }
+    }
+}
+
+@Composable
+private fun CravingEventRow(event: CravingEvent) {
+    val toolLabel = when (event.tool) {
+        SosToolKey.RIDE_THE_WAVE -> stringResource(R.string.sos_ride_wave)
+        SosToolKey.BREATHE -> stringResource(R.string.sos_breathe)
+        SosToolKey.REASONS -> stringResource(R.string.sos_reasons)
+        SosToolKey.DISTRACTIONS -> stringResource(R.string.sos_distractions)
+        SosToolKey.JOURNAL -> stringResource(R.string.sos_journal)
+        SosToolKey.THOUGHT_CHECK -> stringResource(R.string.heatmap_tool_thought_check)
+        SosToolKey.REFUSAL_PRACTICE -> stringResource(R.string.heatmap_tool_refusal)
+        else -> event.tool
+    }
+    val outcomeLabel = when (event.outcome) {
+        CravingOutcome.GOT_THROUGH -> stringResource(R.string.heatmap_outcome_got_through)
+        CravingOutcome.STILL_STRUGGLING -> stringResource(R.string.heatmap_outcome_struggling)
+        CravingOutcome.DRANK -> stringResource(R.string.heatmap_outcome_drank)
+        else -> event.outcome
+    }
+    val time = Instant.ofEpochMilli(event.timestampEpochMillis)
+        .atZone(ZoneId.systemDefault())
+        .toLocalTime()
+        .format(DateTimeFormatter.ofPattern("HH:mm"))
+
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+        Text(
+            text = "$toolLabel · $outcomeLabel",
+            style = MaterialTheme.typography.bodySmall,
+            modifier = Modifier.weight(1f),
+        )
+        Row {
+            event.intensity?.let {
+                Text(
+                    text = stringResource(R.string.heatmap_intensity_label, it),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Spacer(Modifier.width(8.dp))
+            }
+            Text(
+                text = time,
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
     }

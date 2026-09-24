@@ -685,3 +685,370 @@ If during review **any reviewer calls any option infantilizing**, that option is
 | B4 (research) | §9B2 | Variable-reward insight cards |
 
 See [gamification_research.md](../gamification_research.md) for the full landscape review, evidence base, and the Tier C/D items explicitly held back.
+
+---
+
+## 10. Follow-up batch — user feedback round (2026-04-23)
+
+Six items raised during a user test pass: two bugs, one discoverability regression, and three new features. The bugs (§10.1, §10.2) should land **before** any §9 v-next work — they degrade the current experience. The discoverability item (§10.3) requires investigation first (may already be fixed in code; may be UX-only). The three features (§10.4–§10.6) are net-new surfaces and should ship in order of size: heatmap, then the two static content pages.
+
+**Suggested build order within §10:**
+
+1. §10.1 Keyboard overlap (tiny, user-blocking)
+2. §10.2 Distractions non-repetition (tiny)
+3. §10.3 Journal entries discoverability (investigate → fix or UX)
+4. §10.5 Resources page (smaller static content)
+5. §10.6 Getting started guide (slightly larger static content)
+6. §10.4 Craving heatmap in Log tab (largest — includes a schema migration)
+
+---
+
+### 10.1. Bug — keyboard overlaps text input on long entries
+
+**Why.**
+User reports that when writing a long Journal entry (and likely Thought Check, Evening Review, Milestone Letter, Relapse Plan — any multi-line TextField), the soft keyboard covers the cursor. The user can't see what they're typing past a certain point.
+
+**Root cause (likely).**
+Default Compose behaviour without IME-aware insets. One or both of:
+- The Activity's `android:windowSoftInputMode` in the manifest isn't `adjustResize`, or edge-to-edge is on and the insets aren't being consumed by the content.
+- The text-entry Composables aren't using `Modifier.imePadding()` / `Modifier.imeNestedScroll()`, so the content isn't scrolling to keep the caret visible when the IME opens.
+
+**Where to fix.**
+- [app/src/main/AndroidManifest.xml](app/src/main/AndroidManifest.xml) — confirm `android:windowSoftInputMode="adjustResize"` on `MainActivity`.
+- [MainActivity.kt](app/src/main/java/com/tidelet/app/MainActivity.kt) — confirm `enableEdgeToEdge()` is present (standard since Compose 1.6). If present, the content root needs `Modifier.imePadding()` **or** the text-entry screens need it individually.
+- Per-screen application of `Modifier.imePadding()` on the outer Column + wrapping long TextFields in a `verticalScroll` + `bringIntoViewRequester` so the caret stays visible as the user types past the fold:
+  - [JournalScreen.kt](app/src/main/java/com/tidelet/app/ui/sos/JournalScreen.kt)
+  - [ThoughtCheckScreen.kt](app/src/main/java/com/tidelet/app/ui/sos/ThoughtCheckScreen.kt)
+  - [EveningReviewScreen.kt](app/src/main/java/com/tidelet/app/ui/checkin/EveningReviewScreen.kt)
+  - [MilestoneLetterScreen.kt](app/src/main/java/com/tidelet/app/ui/milestones/MilestoneLetterScreen.kt)
+  - [RelapsePlanScreen.kt](app/src/main/java/com/tidelet/app/ui/cbt/RelapsePlanScreen.kt)
+  - Any screen with a multi-line `OutlinedTextField` or `TextField`. Grep: `minLines = [^1]` / `maxLines = ` / `singleLine = false`.
+
+**How.**
+Pattern to apply per screen:
+
+```kotlin
+val bringIntoViewRequester = remember { BringIntoViewRequester() }
+val scope = rememberCoroutineScope()
+
+Column(
+    modifier = Modifier
+        .fillMaxSize()
+        .imePadding()
+        .verticalScroll(rememberScrollState())
+        .padding(...)
+) {
+    // ...
+    OutlinedTextField(
+        value = text,
+        onValueChange = onTextChange,
+        modifier = Modifier
+            .fillMaxWidth()
+            .bringIntoViewRequester(bringIntoViewRequester)
+            .onFocusEvent { if (it.isFocused) scope.launch { bringIntoViewRequester.bringIntoView() } },
+        minLines = 8,
+    )
+}
+```
+
+Alternative (simpler, less precise): wrap the whole screen content in a `Scaffold` with `Modifier.imePadding()` applied to its `Modifier` param, and rely on `verticalScroll` to keep the focused TextField in view. Start here; escalate to the `bringIntoViewRequester` pattern only if focus-jumping is still jumpy on real devices.
+
+**Acceptance.**
+- Manual: open Journal → tap the text box → type until the caret would be behind the keyboard → screen auto-scrolls so caret stays visible. Rotate device → same behaviour in landscape.
+- Manual: repeat for Thought Check, Evening Review, Milestone Letter, Relapse Plan. Every multi-line editor behaves the same.
+- UI test (per screen): `JournalScreenImeTest::caret stays in view when typing past fold` — using `mainClock` + `setSoftKeyboard` equivalent hooks.
+
+---
+
+### 10.2. Bug — "Do something else" shows the same suggestion twice in a row
+
+**Why.**
+User reports tapping the shuffle button sometimes returns the same distraction they're already looking at. This is a pure-random miss, not a planned feature.
+
+**Root cause.**
+[DistractionsScreen.kt](app/src/main/java/com/tidelet/app/ui/sos/DistractionsScreen.kt) line 118:
+
+```kotlin
+onClick = { pickedIndex = Random.nextInt(items.size) }
+```
+
+Pure uniform pick with no memory. Over N taps, collision rate with the previous pick is `1/items.size` per tap.
+
+**Fix — stronger variant (recommended).**
+Maintain a rolling "recently shown" set and pick outside it, reshuffling only when the set covers the whole inventory. This also feels less repetitive across a longer session.
+
+```kotlin
+var pickedIndex by remember { mutableIntStateOf(-1) }
+val recentlyShown = remember { mutableStateListOf<Int>() }
+val recentCap = (items.size - 1).coerceAtLeast(1)  // keep at least one candidate
+
+fun pickNext() {
+    val pool = items.indices.filter { it !in recentlyShown }
+    val next = if (pool.isNotEmpty()) pool.random() else items.indices.random()
+    pickedIndex = next
+    recentlyShown.add(next)
+    while (recentlyShown.size > recentCap) recentlyShown.removeAt(0)
+}
+
+Button(onClick = ::pickNext, ...) { ... }
+```
+
+**Fallback — minimum viable fix.**
+If the coding agent wants to keep the diff tiny, at least exclude the current `pickedIndex`:
+
+```kotlin
+onClick = {
+    val pool = items.indices.filter { it != pickedIndex }
+    pickedIndex = if (pool.isNotEmpty()) pool.random() else Random.nextInt(items.size)
+}
+```
+
+This satisfies the literal user request ("a different option each time you press it"). The stronger variant is preferred because the inventory is small and pure-random feels repetitive well before it literally repeats.
+
+**Where.**
+- [DistractionsScreen.kt](app/src/main/java/com/tidelet/app/ui/sos/DistractionsScreen.kt) — the `pickedIndex` state and the shuffle button's `onClick`.
+- Consider hoisting the rotation logic into `DistractionsViewModel` so the state is testable and survives configuration changes. The current VM is thin and the list is owned by the Composable via `stringArrayResource`; moving just the rotation bookkeeping up is fine without moving the list.
+
+**Acceptance.**
+- Manual: tap shuffle 20 times with a 14-item `builtin_distractions` array → no two consecutive picks match. (Stronger variant: no repeat within any 13-tap window.)
+- Unit (prefer pushing logic into VM for this): `DistractionRotatorTest::never picks same index twice in a row`, `::eventually covers the full inventory before repeating any index`.
+
+---
+
+### 10.3. Journal entries aren't accessible — investigate, then fix
+
+**Why.**
+User reports that Journal entries they've written are "not visible." Needs investigation — the Journal bottom-nav tab is wired (`Routes.JOURNAL` → `JournalHubScreen` → `JOURNAL_ENTRIES` → `JournalListScreen`) and the read-side screens exist, so this could be one of three different things. Each has a different fix.
+
+**Three candidate diagnoses (run in order).**
+
+**(a) Data-binding break — most likely.**
+`JournalScreen.kt` (write-side, under `ui/sos/`) writes to a repository method. `JournalListScreen.kt` (read-side, under `ui/journal/`) subscribes to a flow. If those two aren't pointing at the same `JournalEntry` table / flow, entries vanish.
+
+*Diagnostic.* Grep both files for every repo method they call. The write-side save and the read-side observe must touch the same `JournalEntry` rows. Write a test entry, dump the DB via `adb shell` + `sqlite3` on the device, and confirm the row exists.
+
+*Fix, if broken.* Re-point whichever side is wrong. No schema change — both already model the same entity.
+
+**(b) Discoverability — second-most likely.**
+The user may not know the Journal bottom-nav tab is where their entries live. The icon (`Icons.Rounded.AutoStories`) may not read as "journal" to every user. The write screen is reached via SOS, which is a very different mental model from where entries are then reviewed.
+
+*Fix (UX-only, no bug).* On the write-side `JournalScreen`, add a small "View past entries →" link at the top, navigating to `Routes.JOURNAL_ENTRIES`. On save, show a brief snackbar: "Saved. View all entries in the Journal tab." No changes to the data path.
+
+**(c) Empty-state bug.**
+`JournalListScreen` may show an unhelpful empty state (blank screen) even when entries exist but are filtered out by some query condition (wrong date range, wrong user, etc.). Would look to the user like "my entries aren't there."
+
+*Fix.* Regardless of which diagnosis wins, the empty state for `JournalListScreen` should explicitly say "No journal entries yet. Write one from SOS → Journal → Write freely." with a nav link.
+
+**Build order.**
+Coding agent must reproduce first. Do not jump to a fix.
+
+1. Reproduce: write 3 journal entries via SOS → Journal → Write freely. Open the Journal tab → JournalListScreen. Count entries.
+2. If count matches, diagnosis (a) is ruled out. Fix is (b) + (c) — discoverability affordances.
+3. If count doesn't match, diagnosis (a) is the real bug. Fix the data path, then still apply (b) + (c) for robustness.
+
+**Where.**
+- [JournalScreen.kt (write-side, ui/sos/)](app/src/main/java/com/tidelet/app/ui/sos/JournalScreen.kt) — repo write call; add the "View past entries" link.
+- [JournalListScreen.kt (read-side, ui/journal/)](app/src/main/java/com/tidelet/app/ui/journal/JournalListScreen.kt) — repo read subscription; empty-state copy.
+- [JournalListViewModel.kt](app/src/main/java/com/tidelet/app/ui/journal/JournalListViewModel.kt) — verify it observes the real entries flow, not a stub.
+
+**Acceptance.**
+- Write three entries → Journal tab → all three appear in reverse-chronological order.
+- Empty state (with no entries) explicitly names where to write from, and the link works.
+- Snackbar on save mentions the Journal tab.
+- UI test: `JournalEndToEndTest::entries written in write-side appear in read-side`. This is the canonical regression test and should stay green forever.
+
+---
+
+### 10.4. Craving heatmap in the Log tab
+
+**Why.**
+The user wants to see how craving **frequency** and **intensity** shift over time, visually. A calendar-grid heatmap (GitHub-contribution style) is the established pattern for "days × density" data and reads in 2 seconds. Pattern recognition is the primary therapeutic value — a user who sees "most of my cravings cluster on weekday evenings" has just done the majority of functional-analysis work without a worksheet.
+
+**What.**
+A new card at the top of [LogScreen.kt](app/src/main/java/com/tidelet/app/ui/log/LogScreen.kt), above the existing check-in history. Shows the last ~12 weeks as a grid:
+
+- **Grid layout.** 7 rows (days of week, Mon–Sun) × ~12 columns (weeks). Roughly 350 × 120 dp. Each cell is a rounded 12 dp square with 2 dp gap.
+- **Cell colour.** Derived from *both* drivers: frequency (how many craving events that day) and intensity (mean intensity per event).
+  - Base hue: existing teal (`#1C5E7A`).
+  - Alpha scales with `clamp(count / 3, 0f, 1f)` — 0 events = transparent, 3+ events = full opacity.
+  - Saturation shifts toward the warm coral accent as mean intensity approaches 10 — so a single-high-intensity day reads different from three-mild-intensity days.
+- **Axes.** Day-of-week labels on the left (M/T/W/T/F/S/S, single letters). Month labels above the columns where a month boundary sits.
+- **Tap a cell.** Filters the check-in list below to that day *and* shows the craving events for that day in a small bottom sheet (tool used + intensity + outcome for each event). Tap elsewhere to clear the filter.
+
+**Data-layer impact — this is the biggest piece of §10.**
+
+`CravingEvent` today has `id, timestampEpochMillis, tool, outcome` — no intensity field. Adding the heatmap requires:
+
+1. **Schema migration.** Add `intensity: Int?` (nullable, 1–10, null = not captured) to `CravingEvent`. Bump DB version; destructive migration per Phase 2 policy is acceptable for now.
+2. **Capture point.** Add an intensity slider (1 = "mild itch", 10 = "overwhelming") to the SOS entry point or to Ride the Wave's opening screen. Capture is **optional** — skip button present; heatmap handles `null` intensity by treating it as mean of captured values for that day or defaulting to 5 if the day has no captured intensities.
+3. **New repo query.** `fun cravingEventsByDay(fromDate, toDate): Flow<Map<LocalDate, DayCravingSummary>>` where `DayCravingSummary(count: Int, meanIntensity: Double?, events: List<CravingEvent>)`. Computed in-memory from the existing `cravingEvents` flow.
+4. **Export/import.** `intensity` round-trips through Markdown export (extends §2 contract).
+
+**Where.**
+- [app/src/main/java/com/tidelet/app/data/db/CravingEvent.kt](app/src/main/java/com/tidelet/app/data/db/CravingEvent.kt) — add `intensity: Int?` field, default null.
+- [app/src/main/java/com/tidelet/app/data/db/Daos.kt] — new `observeCravingsByDay(from, to)` DAO query, or derive in the repository from the existing flow.
+- `TideletRepository.kt` (interface + Room impl + fake) — expose the byDay summary.
+- New `app/src/main/java/com/tidelet/app/ui/log/CravingHeatmapCard.kt` — pure-Compose Canvas drawing the grid from a `Map<LocalDate, DayCravingSummary>`. Self-contained.
+- [LogViewModel.kt](app/src/main/java/com/tidelet/app/ui/log/LogViewModel.kt) — expose `val heatmapData: StateFlow<HeatmapData>` and `fun selectDay(date: LocalDate?)` for the filter behaviour.
+- [LogScreen.kt](app/src/main/java/com/tidelet/app/ui/log/LogScreen.kt) — insert the card above the check-in history; wire the filter.
+- New `app/src/main/java/com/tidelet/app/ui/sos/IntensityCapture.kt` or inline into [SosScreen.kt](app/src/main/java/com/tidelet/app/ui/sos/SosScreen.kt) — the 1–10 slider shown once when SOS is opened. Skippable.
+- [ExportImportManager.kt](app/src/main/java/com/tidelet/app/data/export/ExportImportManager.kt) — extend `CravingEvent` encoding with the new field.
+
+**How — coloring function.**
+
+```kotlin
+fun cellColor(count: Int, meanIntensity: Double?): Color {
+    if (count == 0) return Color.Transparent
+    val alpha = (count / 3f).coerceIn(0f, 1f) * 0.85f + 0.15f
+    val warmth = ((meanIntensity ?: 5.0) / 10.0).coerceIn(0.0, 1.0).toFloat()
+    return lerp(tealBase, coralBase, warmth * 0.6f).copy(alpha = alpha)
+}
+```
+
+`warmth * 0.6f` caps the hue shift so even a 10/10 intensity day doesn't fully lose the brand teal.
+
+**Build staging.**
+
+1. Add `intensity` field, migration, repo query. No UI yet.
+2. Build `CravingHeatmapCard` with a test data source. Land the card into Log tab. No intensity capture yet → heatmap uses nulls, renders frequency-only.
+3. Add intensity capture in SOS flow. Heatmap starts showing the saturation shift.
+4. Wire the tap-to-filter behaviour.
+
+Each step independently reviewable.
+
+**Non-goals.**
+- No month-grid calendar view. Week-column grid is chosen because pattern-by-weekday is the most common insight ("weekday evenings", "Saturdays"), and a month grid hides that axis.
+- No year-level zoom. 12 weeks is enough to see a pattern without overwhelming the screen.
+- No sharing/export of the heatmap as an image. Privacy.
+
+**Acceptance.**
+- Manual: seed 40 craving events across 6 weeks with varying intensity → heatmap renders with visibly differing cells. A day with 5 events at intensity 8 reads distinctly warmer than a day with 1 event at intensity 2.
+- Manual: tap a cell → check-in list below filters; bottom sheet shows that day's events. Tap elsewhere → filter clears.
+- Unit: `CravingDaySummaryTest::groups events into day buckets`, `::meanIntensity ignores nulls`.
+- Unit (rendering): `CellColorTest::count=0 is transparent`, `::count=3 is full-alpha`, `::high intensity shifts toward coral`.
+- Integration: intensity field round-trips through export/import.
+
+---
+
+### 10.5. Resources page
+
+**Why.**
+Tidelet is explicitly not a substitute for medical care. When a user needs a crisis line, a clinician, a support group, or deeper reading, the app must hand them off cleanly. Today there is nowhere inside the app to find any of that. Even users who don't need crisis resources often want pointers — "what's a good book on this?" — and leaving the app to Google is a worse experience than giving them a curated list.
+
+**What.**
+A new read-only screen accessed from Settings → "Resources." Three sections, each a small set of rows with title, one-line description, and a tap-through.
+
+**Section 1 — When you need help right now.**
+- SAMHSA National Helpline (US) — 1-800-662-HELP (`tel:18006624357`)
+- 988 Suicide & Crisis Lifeline (US) — 988 (`tel:988`)
+- Locale-aware: if `Locale.getDefault().country` is `GB`, show Samaritans 116 123; if `IN`, show iCall 9152987821; if `AU`, Lifeline 13 11 14. Fall back to SAMHSA/988 for unrecognised locales, with a line "If you're outside these regions, your local emergency number is usually the fastest route."
+
+**Section 2 — Non-profit support communities.**
+- SMART Recovery — [smartrecovery.org](https://www.smartrecovery.org)
+- Alcoholics Anonymous — [aa.org](https://www.aa.org)
+- Moderation Management — [moderation.org](https://www.moderation.org) (for users whose goal isn't abstinence)
+- Reddit r/stopdrinking — [reddit.com/r/stopdrinking](https://www.reddit.com/r/stopdrinking)
+
+**Section 3 — Further reading and science.**
+- NIAAA "Rethinking Drinking" — [rethinkingdrinking.niaaa.nih.gov](https://rethinkingdrinking.niaaa.nih.gov)
+- This Naked Mind (Annie Grace) — book pointer, no affiliate link
+- Alcohol Explained (William Porter) — book pointer, no affiliate link
+- NIAAA's Treatment Navigator — [alcoholtreatment.niaaa.nih.gov](https://alcoholtreatment.niaaa.nih.gov)
+- A plain-English primer on cognitive distortions (Psychology Tools, open article)
+
+**Data source.**
+Seed content lives in `app/src/main/res/raw/resources.json` (or a Kotlin `ResourceCatalog.kt`) so the PM can edit without touching code. Structure:
+
+```kotlin
+data class ResourceLink(
+    val sectionKey: String,
+    val titleRes: Int,
+    val descriptionRes: Int,
+    val url: String,       // https or tel:
+    val countryFilter: List<String> = emptyList(), // empty = global
+)
+```
+
+**Where.**
+- New `app/src/main/java/com/tidelet/app/ui/resources/ResourcesScreen.kt`, `ResourcesViewModel.kt`.
+- [SettingsScreen.kt](app/src/main/java/com/tidelet/app/ui/settings/SettingsScreen.kt) — add a "Resources" row in the About/Help section.
+- [Routes.kt (TideletNav.kt)](app/src/main/java/com/tidelet/app/ui/nav/TideletNav.kt) — add `const val RESOURCES = "resources"`.
+- External link handling: open URLs via `Intent.ACTION_VIEW` with `Uri.parse(url)`. `tel:` links open the dialer via the same mechanism — do **not** place the call for the user.
+
+**Privacy constraints.**
+- **No link attribution or tracking.** URLs are plain — no utm params, no redirectors.
+- **No embedded WebView.** All taps leave the app via the OS browser / dialer.
+- **No search.** The list is curated; any find-a-therapist functionality requires a network call and is out of scope.
+- Show a one-line hint at the top: "These links open in your browser. Tidelet doesn't share your data with them."
+
+**Top-level disclaimer.**
+At the top of the screen, one sentence: "Tidelet is a self-help tool, not a medical service. If you need care, the links below are where to start."
+
+**Non-goals.**
+- No paid-service listings. No rehab-center affiliate content ever.
+- No promoted link ordering. Sections are curated alphabetically within each group (by title).
+
+**Acceptance.**
+- Manual: Settings → Resources → all three sections render; tap a link → OS browser opens correct URL. Tap a `tel:` link → dialer opens with the correct number.
+- Manual: set system locale to GB → locale-specific helpline appears; to IN → different helpline appears. Default (e.g. DE) → falls back to SAMHSA with the "outside these regions" note.
+- Unit: `ResourceCatalogTest::loads expected sections`, `::countryFilter picks correct helpline`.
+
+---
+
+### 10.6. Getting started — best-practices guide
+
+**Why.**
+The onboarding flow gets users to day 1, but doesn't teach them *how the app actually helps*. Users who poke around discover features individually; users who don't, don't. A short guide — accessible from Settings and optionally from the end of onboarding — tells the user: here's when to open SOS, here's when to log a check-in, here's what the Journal is for, here's how to read your Stats.
+
+**What.**
+A single scrollable screen. Structured as short sections (2–4 sentences each, not chapters):
+
+1. **Day 1 — what to do first.** Pick a visible start date (already done in onboarding). Bookmark the SOS button's location. Everything else can wait.
+2. **When a craving hits.** Tap SOS. Pick one tool. The point isn't finishing a specific tool — it's buying 15 minutes.
+3. **Daily check-in (Log tab).** Two minutes, same time each day. Fill it in honestly, not aspirationally.
+4. **Journal & Thought Check (Journal tab).** Use Journal for open-ended writing, Thought Check for stuck thought loops. Both are private and searchable.
+5. **Stats — reading the pattern.** The heatmap shows *when* cravings cluster. The money-saved and hours-reclaimed cards compound slowly — check them weekly, not daily.
+6. **Settings — making the app yours.** Edit drinking baseline, back up your data, turn on evening mini-review if you want a second daily touchpoint.
+7. **When you need more than this app.** Link to §10.5 Resources page.
+
+**Copy principle.**
+Written in the same quiet voice as the rest of the app. Not motivational. Not corporate. Short paragraphs; no bullet lists with twelve items each.
+
+**Where.**
+- New `app/src/main/java/com/tidelet/app/ui/help/GettingStartedScreen.kt` (no ViewModel — pure static content).
+- Content in `strings.xml` or in-code `@Composable` text blocks — keep it editable by PM either way.
+- [SettingsScreen.kt](app/src/main/java/com/tidelet/app/ui/settings/SettingsScreen.kt) — add "How to use Tidelet" row in About/Help section, above Resources.
+- [OnboardingScreen.kt](app/src/main/java/com/tidelet/app/ui/onboarding/OnboardingScreen.kt) — at the end of the flow, add a final screen with a single "Read a quick guide" button (default action) plus "Skip and start" (default-focused for users who want to jump in). Tapping "Read a quick guide" navigates to `GettingStartedScreen` and returns to Home on back.
+- [Routes.kt (TideletNav.kt)](app/src/main/java/com/tidelet/app/ui/nav/TideletNav.kt) — add `const val GETTING_STARTED = "help/getting-started"`.
+
+**Non-goals.**
+- No interactive walkthrough (no "tap here next" coaching overlays). The guide is a page, not a product tour.
+- No progress gamification ("you've read 3/7 sections"). It's a help doc, not a quest.
+- No inline video. Text only — keeps the bundle small and translation simple.
+
+**Acceptance.**
+- Manual: Settings → How to use Tidelet → guide renders; scroll through all 7 sections. "Resources" link at the bottom navigates to §10.5.
+- Manual: new install → onboarding end screen → "Read a quick guide" → guide → Home. "Skip and start" → Home directly.
+- Screenshot test: one baseline screenshot of the guide at default text scale + one at 2× accessibility scale (confirms readability under large-type settings).
+
+---
+
+## Priority order summary — all of Phase 2 + follow-ups
+
+Updated end-to-end ordering including §9 and §10:
+
+1. §1 Breathe bug
+2. §10.1 Keyboard overlap bug *(high user impact, tiny diff)*
+3. §10.2 Distractions non-repetition bug *(tiny)*
+4. §10.3 Journal discoverability *(investigation-first)*
+5. §2 Export/import tests + Verify backup
+6. §3 Settings baseline
+7. §4 Thought Pattern antidotes
+8. §6 Local-only usage counters
+9. §5 Log review screens
+10. §7 Milestone letter-to-self
+11. §10.5 Resources page *(small static content)*
+12. §10.6 Getting started guide *(small static content)*
+13. §10.4 Craving heatmap *(largest §10 item; includes migration)*
+14. §8 Home-screen widget
+15. §9 v-next engagement layer (A4 → A1 → A2 → A3 → A5 → B2 → B1)

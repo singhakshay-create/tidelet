@@ -9,10 +9,11 @@
     <string name="onboarding_start_date_today">Today</string>
     <string name="onboarding_start_date_yesterday">Yesterday</string>
     <string name="onboarding_start_date_earlier">Earlier — pick a date</string>
-    <string name="onboarding_done_title">You\'re set</string>
-    <string name="onboarding_done_body">Tidelet is a tool, not treatment. If you\'ve been drinking heavily every day, please talk to a doctor before stopping suddenly — alcohol withdrawal can be serious.</string>
+    <string name="onboarding_done_title">System ready</string>
+    <string name="onboarding_done_body">Tidelet is a tool, not treatment. If you have been drinking heavily every day, consult a physician before cessation. Alcohol withdrawal can be severe.</string>
     <string name="onboarding_continue">Continue</string>
     <string name="onboarding_finish">Take me to the app</string>
+    <string name="onboarding_guide_hint">Tip: find a quick guide anytime in Settings \u2192 How to use Tidelet.</string>
 
     <!-- Home -->
     <string name="home_days_singular">day</string>
@@ -59,6 +60,14 @@
     <string name="sos_journal">Write it down</string>
     <string name="sos_journal_sub">One prompt. A place to name it.</string>
 
+    <!-- Intensity capture -->
+    <string name="intensity_title">How strong is the craving?</string>
+    <string name="intensity_body">Rate it from 1 to 10 — there\'s no wrong answer.</string>
+    <string name="intensity_low">1 — mild</string>
+    <string name="intensity_high">10 — overwhelming</string>
+    <string name="intensity_continue">Continue</string>
+    <string name="intensity_skip">Skip</string>
+
     <!-- Ride the Wave -->
     <string name="wave_title">Ride the wave</string>
     <string name="wave_line_1">Urges come and go like waves.</string>
@@ -75,9 +84,9 @@
     <string name="wave_i_drank">I drank</string>
 
     <!-- Compassionate reset -->
-    <string name="reset_title">You\'re still here.</string>
-    <string name="reset_body_1">One day is data, not failure. What was happening around you matters more than the slip itself.</string>
-    <string name="reset_body_2">Logging today — even a single tag — is how future-you sees the pattern instead of just the moment.</string>
+    <string name="reset_title">Persistence observed.</string>
+    <string name="reset_body_1">Individual data points do not define the trajectory. Contextual factors are more significant than the isolated event.</string>
+    <string name="reset_body_2">Documentation of the current state allows for longitudinal pattern analysis.</string>
     <string name="reset_log_today">Log today\'s check-in</string>
     <string name="reset_not_now">Not now</string>
 
@@ -97,8 +106,8 @@
 
     <!-- My reasons -->
     <string name="reasons_title">My reasons</string>
-    <string name="reasons_empty_title">Your reasons will live here.</string>
-    <string name="reasons_empty_body">Write down a few reasons you\'re doing this. Future-you will read them during the hard moments.</string>
+    <string name="reasons_empty_title">Reasons pending.</string>
+    <string name="reasons_empty_body">Document the primary drivers for this change. These will serve as reference points during high-intensity events.</string>
     <string name="reasons_add_hint">Add a reason — short is fine</string>
     <string name="reasons_add_button">Add</string>
     <string name="reasons_delete">Remove</string>
@@ -110,12 +119,13 @@
     <string name="journal_save">Save</string>
     <string name="journal_skip">Skip</string>
     <string name="journal_back">Back to SOS</string>
-    <string name="journal_saved_title">It\'s written down.</string>
-    <string name="journal_saved_body">Sometimes naming it is most of the work.</string>
+    <string name="journal_saved_title">Data saved.</string>
+    <string name="journal_saved_body">The act of externalizing thought often reduces cognitive load. Access previous entries in the Journal tab.</string>
+    <string name="journal_saved_view_entries">View past entries</string>
 
     <!-- Do something else (distractions) -->
     <string name="distractions_title">Do something else</string>
-    <string name="distractions_body">A craving usually loses its grip inside 20 minutes. Pick one thing from the list and do it now.</string>
+    <string name="distractions_body">Cravings typically dissipate within a 20-minute window. Select one action from the following sequence.</string>
     <string name="distractions_pick_one">Pick one for me</string>
     <string name="distractions_did_it">I did it</string>
     <string name="distractions_skipped">Nothing worked</string>
@@ -182,11 +192,21 @@
     <string name="log_today_label">Today</string>
     <string name="log_check_in_today">Check in for today</string>
     <string name="log_edit_today">Edit today\'s check-in</string>
-    <string name="log_empty_title">No check-ins yet.</string>
-    <string name="log_empty_body">A short daily note is one of the strongest predictors that someone sticks with it. It takes less than a minute.</string>
+    <string name="log_empty_title">No entries found.</string>
+    <string name="log_empty_body">Consistency in daily notation is a primary predictor of success. Completion takes less than 60 seconds.</string>
     <string name="log_entry_drink_free">Drink-free</string>
     <string name="log_entry_drank">%1$d drinks</string>
     <string name="log_entry_drank_unknown">Drank (count not set)</string>
+
+    <!-- Heatmap detail -->
+    <string name="heatmap_clear_filter">Clear</string>
+    <string name="heatmap_day_count">%1$d craving events</string>
+    <string name="heatmap_tool_thought_check">Thought check</string>
+    <string name="heatmap_tool_refusal">Refusal practice</string>
+    <string name="heatmap_outcome_got_through">got through</string>
+    <string name="heatmap_outcome_struggling">struggling</string>
+    <string name="heatmap_outcome_drank">drank</string>
+    <string name="heatmap_intensity_label">%1$d/10</string>
 
     <!-- Daily Check-in form -->
     <string name="checkin_title">Daily check-in</string>
@@ -402,6 +422,12 @@
     <string name="settings_distortions">Common thought patterns</string>
     <string name="settings_distortions_sub">Reference for thought-check. Psychoeducation, not a quiz.</string>
 
+    <string name="settings_section_help">Help &amp; resources</string>
+    <string name="settings_getting_started">How to use Tidelet</string>
+    <string name="settings_getting_started_sub">A quick tour of every feature.</string>
+    <string name="settings_resources">Resources</string>
+    <string name="settings_resources_sub">Crisis lines, support communities, and further reading.</string>
+
     <string name="settings_export">Export your data</string>
     <string name="settings_export_sub">Save everything as a Markdown file.</string>
     <string name="settings_import">Import from file</string>
@@ -569,8 +595,8 @@
     <string name="journal_search_placeholder">Search your writing…</string>
     <string name="journal_search_clear">Clear search</string>
     <string name="journal_search_no_matches">No entries match \"%1$s.\"</string>
-    <string name="journal_empty_title">Nothing yet.</string>
-    <string name="journal_empty_body">Blank-page writing lands here when you need to dump a head.</string>
+    <string name="journal_empty_title">No journal entries yet.</string>
+    <string name="journal_empty_body">Write one from the SOS toolkit — tap SOS, then Journal.</string>
 
     <!-- Shared read-side copy. -->
     <string name="common_back">Back</string>
@@ -590,4 +616,60 @@
     <string name="widget_start_your_streak">Start your streak</string>
     <string name="widget_streak_singular">%1$d day</string>
     <string name="widget_streak_plural">%1$d days</string>
+
+    <!-- Resources page (§10.5) -->
+    <string name="resources_title">Resources</string>
+    <string name="resources_disclaimer">Tidelet is a self-help tool, not a medical service. If you need care, the links below are where to start.</string>
+    <string name="resources_privacy_hint">These links open in your browser. Tidelet doesn\'t share your data with them.</string>
+    <string name="resources_fallback_note">If you\'re outside these regions, your local emergency number is usually the fastest route to help.</string>
+
+    <string name="resources_section_crisis">When you need help right now</string>
+    <string name="resources_section_communities">Support communities</string>
+    <string name="resources_section_reading">Further reading &amp; science</string>
+
+    <string name="resources_samhsa_title">SAMHSA National Helpline</string>
+    <string name="resources_samhsa_desc">Free, confidential, 24/7. 1-800-662-HELP</string>
+    <string name="resources_988_title">988 Suicide &amp; Crisis Lifeline</string>
+    <string name="resources_988_desc">Call or text 988. Available 24/7.</string>
+    <string name="resources_samaritans_title">Samaritans</string>
+    <string name="resources_samaritans_desc">Free to call, 24/7. 116 123</string>
+    <string name="resources_icall_title">iCall</string>
+    <string name="resources_icall_desc">Psychosocial helpline. 9152987821</string>
+    <string name="resources_lifeline_au_title">Lifeline Australia</string>
+    <string name="resources_lifeline_au_desc">Crisis support, 24/7. 13 11 14</string>
+
+    <string name="resources_aa_title">Alcoholics Anonymous</string>
+    <string name="resources_aa_desc">Peer support worldwide. Find a meeting near you.</string>
+    <string name="resources_mm_title">Moderation Management</string>
+    <string name="resources_mm_desc">For people whose goal isn\'t necessarily abstinence.</string>
+    <string name="resources_smart_title">SMART Recovery</string>
+    <string name="resources_smart_desc">Science-based mutual support groups.</string>
+    <string name="resources_stopdrinking_title">r/stopdrinking</string>
+    <string name="resources_stopdrinking_desc">Large, active Reddit community.</string>
+
+    <string name="resources_alcohol_explained_title">Alcohol Explained (William Porter)</string>
+    <string name="resources_alcohol_explained_desc">Clear, science-backed look at how alcohol works in the brain.</string>
+    <string name="resources_niaaa_rethinking_title">NIAAA: Rethinking Drinking</string>
+    <string name="resources_niaaa_rethinking_desc">Self-assessment tools from the National Institute on Alcohol Abuse.</string>
+    <string name="resources_niaaa_navigator_title">NIAAA Treatment Navigator</string>
+    <string name="resources_niaaa_navigator_desc">Find evidence-based treatment near you.</string>
+    <string name="resources_naked_mind_title">This Naked Mind (Annie Grace)</string>
+    <string name="resources_naked_mind_desc">Reframing your relationship with alcohol.</string>
+
+    <!-- Getting Started guide (§10.6) -->
+    <string name="getting_started_title">How to use Tidelet</string>
+    <string name="getting_started_s1_title">1. Your streak</string>
+    <string name="getting_started_s1_body">The Home tab counts days since your last drink. If you reset, the count starts over — but your lifetime total is always visible. Resets don\'t erase progress.</string>
+    <string name="getting_started_s2_title">2. Daily check-ins</string>
+    <string name="getting_started_s2_body">The Log tab is your daily check-in. Did you drink today? How many? How\'s your mood? Even a one-word note helps you spot patterns later.</string>
+    <string name="getting_started_s3_title">3. SOS toolkit</string>
+    <string name="getting_started_s3_body">When a craving hits, tap the big button on Home. You\'ll get four tools — a timer, breathing, your personal reasons, and distractions — plus a journal prompt. Use whichever lands.</string>
+    <string name="getting_started_s4_title">4. Journal</string>
+    <string name="getting_started_s4_body">The Journal tab collects everything you\'ve written — freeform entries and thought-checks. Writing during a craving often breaks the loop.</string>
+    <string name="getting_started_s5_title">5. Stats</string>
+    <string name="getting_started_s5_body">The Stats tab shows your streaks, tools used, money saved, and time reclaimed. These numbers are estimates based on the drinking baseline you set in Settings.</string>
+    <string name="getting_started_s6_title">6. Plans &amp; practice</string>
+    <string name="getting_started_s6_body">In Settings you\'ll find your relapse prevention plan, drink-refusal rehearsal, and a reference for common thought patterns. Fill these out when you\'re calm — they\'re there for when you\'re not.</string>
+    <string name="getting_started_s7_title">7. When you need more than this app</string>
+    <string name="getting_started_s7_body">Tidelet is a tool, not treatment. If you need a crisis line, a support group, or a therapist, check the Resources page.</string>
 </resources>

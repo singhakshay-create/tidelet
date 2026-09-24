@@ -236,6 +236,8 @@ fun TideletApp() {
                     onOpenRelapsePlan = { navController.navigate(Routes.RELAPSE_PLAN) },
                     onOpenRefusalRehearsal = { navController.navigate(Routes.REFUSAL_REHEARSAL) },
                     onOpenDistortionsLibrary = { navController.navigate(Routes.CBT_DISTORTIONS) },
+                    onOpenResources = { navController.navigate(Routes.RESOURCES) },
+                    onOpenGettingStarted = { navController.navigate(Routes.GETTING_STARTED) },
                 )
             }
 
@@ -259,25 +261,24 @@ fun TideletApp() {
                     onNavigate = { route -> navController.navigate(route) },
                 )
             }
-            composable(Routes.SOS_WAVE) {
+            composable(
+                route = "${Routes.SOS_WAVE}?intensity={intensity}",
+                arguments = listOf(navArgument("intensity") { type = NavType.IntType; defaultValue = -1 }),
+            ) { entry ->
+                val intensity = entry.arguments?.getInt("intensity")?.takeIf { it > 0 }
                 RideTheWaveScreen(
                     onDone = { navController.popBackStack(Routes.HOME, inclusive = false) },
                     onDrankFlow = {
-                        // Jump into the reset screen, and pop Ride the Wave off
-                        // the stack so Back from reset goes straight to Home
-                        // rather than back into the wave countdown.
                         navController.navigate(Routes.SOS_RESET) {
                             popUpTo(Routes.HOME) { inclusive = false }
                         }
                     },
+                    intensity = intensity,
                 )
             }
             composable(Routes.SOS_RESET) {
                 CompassionateResetScreen(
                     onLogToday = {
-                        // Straight into today's check-in form (pre-fills nothing
-                        // intentionally — the user should affirm didDrink=true
-                        // themselves, not have the app decide for them).
                         val today = java.time.LocalDate.now().toString()
                         navController.navigate(Routes.logCheckIn(today)) {
                             popUpTo(Routes.HOME) { inclusive = false }
@@ -288,29 +289,62 @@ fun TideletApp() {
                     },
                 )
             }
-            composable(Routes.SOS_BREATHE) {
-                BreatheScreen(onDone = { navController.popBackStack() })
+            composable(
+                route = "${Routes.SOS_BREATHE}?intensity={intensity}",
+                arguments = listOf(navArgument("intensity") { type = NavType.IntType; defaultValue = -1 }),
+            ) { entry ->
+                val intensity = entry.arguments?.getInt("intensity")?.takeIf { it > 0 }
+                BreatheScreen(onDone = { navController.popBackStack() }, intensity = intensity)
             }
-            composable(Routes.SOS_REASONS) {
-                ReasonsScreen(onBack = { navController.popBackStack() })
+            composable(
+                route = "${Routes.SOS_REASONS}?intensity={intensity}",
+                arguments = listOf(navArgument("intensity") { type = NavType.IntType; defaultValue = -1 }),
+            ) { entry ->
+                val intensity = entry.arguments?.getInt("intensity")?.takeIf { it > 0 }
+                ReasonsScreen(onBack = { navController.popBackStack() }, intensity = intensity)
             }
-            composable(Routes.SOS_DISTRACTIONS) {
-                DistractionsScreen(onDone = { navController.popBackStack() })
+            composable(
+                route = "${Routes.SOS_DISTRACTIONS}?intensity={intensity}",
+                arguments = listOf(navArgument("intensity") { type = NavType.IntType; defaultValue = -1 }),
+            ) { entry ->
+                val intensity = entry.arguments?.getInt("intensity")?.takeIf { it > 0 }
+                DistractionsScreen(onDone = { navController.popBackStack() }, intensity = intensity)
             }
-            composable(Routes.SOS_JOURNAL) {
+            composable(
+                route = "${Routes.SOS_JOURNAL}?intensity={intensity}",
+                arguments = listOf(navArgument("intensity") { type = NavType.IntType; defaultValue = -1 }),
+            ) { entry ->
+                val intensity = entry.arguments?.getInt("intensity")?.takeIf { it > 0 }
+                val suffix = intensity?.let { "?intensity=$it" } ?: ""
                 JournalHubScreen(
-                    onOpenFreeform = { navController.navigate(Routes.SOS_JOURNAL_FREE) },
-                    onOpenThoughtCheck = { navController.navigate(Routes.SOS_THOUGHT_CHECK) },
+                    onOpenFreeform = { navController.navigate("${Routes.SOS_JOURNAL_FREE}$suffix") },
+                    onOpenThoughtCheck = { navController.navigate("${Routes.SOS_THOUGHT_CHECK}$suffix") },
                     onBack = { navController.popBackStack() },
                 )
             }
-            composable(Routes.SOS_JOURNAL_FREE) {
-                JournalScreen(onDone = { navController.popBackStack() })
+            composable(
+                route = "${Routes.SOS_JOURNAL_FREE}?intensity={intensity}",
+                arguments = listOf(navArgument("intensity") { type = NavType.IntType; defaultValue = -1 }),
+            ) { entry ->
+                val intensity = entry.arguments?.getInt("intensity")?.takeIf { it > 0 }
+                JournalScreen(
+                    onDone = { navController.popBackStack() },
+                    onViewEntries = {
+                        navController.popBackStack()
+                        navController.navigate(Routes.JOURNAL_ENTRIES)
+                    },
+                    intensity = intensity,
+                )
             }
-            composable(Routes.SOS_THOUGHT_CHECK) {
+            composable(
+                route = "${Routes.SOS_THOUGHT_CHECK}?intensity={intensity}",
+                arguments = listOf(navArgument("intensity") { type = NavType.IntType; defaultValue = -1 }),
+            ) { entry ->
+                val intensity = entry.arguments?.getInt("intensity")?.takeIf { it > 0 }
                 ThoughtCheckScreen(
                     onDone = { navController.popBackStack() },
                     onOpenDistortions = { navController.navigate(Routes.CBT_DISTORTIONS) },
+                    intensity = intensity,
                 )
             }
 
@@ -332,6 +366,19 @@ fun TideletApp() {
             }
             composable(Routes.REFUSAL_REHEARSAL) {
                 RefusalRehearsalScreen(onBack = { navController.popBackStack() })
+            }
+
+            // --- Help & resources ---
+            composable(Routes.RESOURCES) {
+                com.tidelet.app.ui.resources.ResourcesScreen(
+                    onBack = { navController.popBackStack() },
+                )
+            }
+            composable(Routes.GETTING_STARTED) {
+                com.tidelet.app.ui.help.GettingStartedScreen(
+                    onBack = { navController.popBackStack() },
+                    onOpenResources = { navController.navigate(Routes.RESOURCES) },
+                )
             }
         }
     }

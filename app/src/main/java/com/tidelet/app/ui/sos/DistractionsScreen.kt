@@ -38,6 +38,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -49,7 +50,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.tidelet.app.R
 import com.tidelet.app.ui.theme.TideletTheme
-import kotlin.random.Random
 
 /**
  * "Do something else" — a curated list of 2-to-15 minute alternatives to
@@ -65,6 +65,7 @@ import kotlin.random.Random
 @Composable
 fun DistractionsScreen(
     onDone: () -> Unit,
+    intensity: Int? = null,
     vm: DistractionsViewModel = viewModel(),
 ) {
     val warmSurface = TideletTheme.extended.sosSurface
@@ -75,6 +76,8 @@ fun DistractionsScreen(
 
     // -1 = nothing picked yet (user hasn't tapped the shuffle button).
     var pickedIndex by remember { mutableIntStateOf(-1) }
+    val recentlyShown = remember { emptyList<Int>().toMutableStateList() }
+    val recentCap = (items.size - 1).coerceAtLeast(1)
     val listState = rememberLazyListState()
 
     // Scroll the picked card into view whenever pickedIndex changes.
@@ -115,7 +118,13 @@ fun DistractionsScreen(
             Spacer(Modifier.height(12.dp))
 
             Button(
-                onClick = { pickedIndex = Random.nextInt(items.size) },
+                onClick = {
+                    val pool = items.indices.filter { it !in recentlyShown }
+                    val next = if (pool.isNotEmpty()) pool.random() else items.indices.random()
+                    pickedIndex = next
+                    recentlyShown.add(next)
+                    while (recentlyShown.size > recentCap) recentlyShown.removeAt(0)
+                },
                 modifier = Modifier.fillMaxWidth().testTag("distractions_shuffle"),
                 colors = ButtonDefaults.buttonColors(containerColor = accent),
             ) {
@@ -147,7 +156,7 @@ fun DistractionsScreen(
             ) {
                 OutlinedButton(
                     onClick = {
-                        vm.logNothingWorked()
+                        vm.logNothingWorked(intensity)
                         onDone()
                     },
                     modifier = Modifier.weight(1f).testTag("distractions_nothing_worked"),
@@ -155,7 +164,7 @@ fun DistractionsScreen(
 
                 Button(
                     onClick = {
-                        vm.logDidIt()
+                        vm.logDidIt(intensity)
                         onDone()
                     },
                     modifier = Modifier.weight(1f).testTag("distractions_did_it"),

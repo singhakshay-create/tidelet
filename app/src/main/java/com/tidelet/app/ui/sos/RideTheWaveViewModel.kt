@@ -92,11 +92,12 @@ class RideTheWaveViewModel @JvmOverloads constructor(
      * in-line analysis. DRANK does NOT open the panel — the analysis lives
      * on the Compassionate Reset screen instead (see class doc).
      */
-    fun logOutcome(outcome: String) {
+    fun logOutcome(outcome: String, intensity: Int? = null) {
         viewModelScope.launch {
             val id = repo.logCravingEventReturningId(
                 tool = SosToolKey.RIDE_THE_WAVE,
                 outcome = outcome,
+                intensity = intensity,
             )
             _state.update {
                 it.copy(
@@ -107,9 +108,9 @@ class RideTheWaveViewModel @JvmOverloads constructor(
         }
     }
 
-    fun logGotThrough() = logOutcome(CravingOutcome.GOT_THROUGH)
-    fun logStillStruggling() = logOutcome(CravingOutcome.STILL_STRUGGLING)
-    fun logDrank() = logOutcome(CravingOutcome.DRANK)
+    fun logGotThrough(intensity: Int? = null) = logOutcome(CravingOutcome.GOT_THROUGH, intensity)
+    fun logStillStruggling(intensity: Int? = null) = logOutcome(CravingOutcome.STILL_STRUGGLING, intensity)
+    fun logDrank(intensity: Int? = null) = logOutcome(CravingOutcome.DRANK, intensity)
 
     /** Save the analysis (if at least one field is filled) and dismiss the panel. */
     fun saveAnalysis(antecedent: String?, thought: String?, followingAction: String?) {

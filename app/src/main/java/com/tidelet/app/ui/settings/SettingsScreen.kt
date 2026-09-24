@@ -20,7 +20,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.DeleteForever
 import androidx.compose.material.icons.filled.Download
+import androidx.compose.material.icons.filled.HelpOutline
 import androidx.compose.material.icons.filled.Lightbulb
+import androidx.compose.material.icons.filled.LocalLibrary
 import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material.icons.filled.RecordVoiceOver
 import androidx.compose.material.icons.filled.Upload
@@ -77,6 +79,8 @@ fun SettingsScreen(
     onOpenRelapsePlan: () -> Unit = {},
     onOpenRefusalRehearsal: () -> Unit = {},
     onOpenDistortionsLibrary: () -> Unit = {},
+    onOpenResources: () -> Unit = {},
+    onOpenGettingStarted: () -> Unit = {},
     vm: SettingsViewModel = viewModel(),
 ) {
     val context = LocalContext.current
@@ -135,6 +139,27 @@ fun SettingsScreen(
                     title = stringResource(R.string.settings_distortions),
                     subtitle = stringResource(R.string.settings_distortions_sub),
                     onClick = onOpenDistortionsLibrary,
+                    isLast = true,
+                )
+            }
+
+            Spacer(Modifier.height(24.dp))
+
+            // --- Help & resources ---
+            SectionLabel(stringResource(R.string.settings_section_help))
+            Spacer(Modifier.height(8.dp))
+            SettingsCard {
+                SettingsRow(
+                    icon = Icons.Filled.HelpOutline,
+                    title = stringResource(R.string.settings_getting_started),
+                    subtitle = stringResource(R.string.settings_getting_started_sub),
+                    onClick = onOpenGettingStarted,
+                )
+                SettingsRow(
+                    icon = Icons.Filled.LocalLibrary,
+                    title = stringResource(R.string.settings_resources),
+                    subtitle = stringResource(R.string.settings_resources_sub),
+                    onClick = onOpenResources,
                     isLast = true,
                 )
             }

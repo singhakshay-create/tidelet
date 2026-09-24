@@ -31,6 +31,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -42,19 +46,49 @@ import com.tidelet.app.R
 import com.tidelet.app.ui.nav.Routes
 import com.tidelet.app.ui.theme.TideletTheme
 
+private enum class SosPhase { Intensity, Tools }
+
 @Composable
 fun SosScreen(
     onClose: () -> Unit,
     onNavigate: (String) -> Unit,
 ) {
-    // Warm background for the entire SOS flow.
+    var phase by remember { mutableStateOf(SosPhase.Intensity) }
+    var capturedIntensity by remember { mutableStateOf<Int?>(null) }
+
+    when (phase) {
+        SosPhase.Intensity -> IntensityCapture(
+            onIntensitySelected = { value ->
+                capturedIntensity = value
+                phase = SosPhase.Tools
+            },
+            onSkip = {
+                capturedIntensity = null
+                phase = SosPhase.Tools
+            },
+            onClose = onClose,
+        )
+        SosPhase.Tools -> SosToolGrid(
+            onClose = onClose,
+            onNavigate = { route ->
+                val suffix = capturedIntensity?.let { "?intensity=$it" } ?: ""
+                onNavigate("$route$suffix")
+            },
+        )
+    }
+}
+
+@Composable
+private fun SosToolGrid(
+    onClose: () -> Unit,
+    onNavigate: (String) -> Unit,
+) {
     val sosSurface = TideletTheme.extended.sosSurface
     val onSos = TideletTheme.extended.onSosSurface
 
     Box(
         modifier = Modifier.fillMaxSize().background(sosSurface),
     ) {
-        // Close X in the top-right
         IconButton(
             onClick = onClose,
             modifier = Modifier.align(Alignment.TopEnd).padding(8.dp),
@@ -79,7 +113,6 @@ fun SosScreen(
             )
             Spacer(Modifier.height(24.dp))
 
-            // Clean 2x2 grid — four tools, equal weight.
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
                 contentPadding = PaddingValues(vertical = 16.dp),
@@ -123,9 +156,6 @@ fun SosScreen(
                         tileTag = "sos_grid_distractions",
                     )
                 }
-                // Full-width "last rung" tile — Journal is reached for when
-                // the other tools haven't landed. Framed as calmer, wider,
-                // and a touch shorter than the 2x2 tiles above it.
                 item(span = { GridItemSpan(maxLineSpan) }) {
                     SosWideTile(
                         icon = Icons.Rounded.Edit,

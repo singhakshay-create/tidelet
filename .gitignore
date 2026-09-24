@@ -10,6 +10,11 @@ build/
 local.properties
 captures/
 
+# Signing material — never commit these
+*.jks
+*.keystore
+keystore.properties
+
 # Kotlin IDE cache (per-session garbage — not the gradle build)
 .kotlin/
 

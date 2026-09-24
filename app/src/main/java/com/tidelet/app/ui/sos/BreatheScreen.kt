@@ -57,6 +57,7 @@ private enum class BreathPhase(val labelRes: Int, val durationMillis: Int) {
 @Composable
 fun BreatheScreen(
     onDone: () -> Unit,
+    intensity: Int? = null,
     vm: BreatheViewModel = viewModel(),
 ) {
     val warmSurface = TideletTheme.extended.sosSurface
@@ -106,7 +107,7 @@ fun BreatheScreen(
     // on composable exit.
     DisposableEffect(Unit) {
         onDispose {
-            if (cycles > 0) vm.logCompleted()
+            if (cycles > 0) vm.logCompleted(intensity)
         }
     }
 

@@ -170,6 +170,12 @@ private fun DonePage(onFinish: () -> Unit) {
                 onClick = onFinish,
                 modifier = Modifier.fillMaxWidth().testTag("onboarding_finish"),
             ) { Text(stringResource(R.string.onboarding_finish)) }
+            Spacer(Modifier.height(12.dp))
+            Text(
+                text = stringResource(R.string.onboarding_guide_hint),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
         }
     }
 }

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -57,6 +58,7 @@ import com.tidelet.app.ui.theme.TideletTheme
 fun ThoughtCheckScreen(
     onDone: () -> Unit,
     onOpenDistortions: () -> Unit,
+    intensity: Int? = null,
     vm: ThoughtCheckViewModel = viewModel(),
 ) {
     val state by vm.state.collectAsStateWithLifecycle()
@@ -78,9 +80,9 @@ fun ThoughtCheckScreen(
                 onFriendReframe = vm::setFriendReframe,
                 onToggleDistortion = vm::toggleDistortion,
                 onOpenDistortions = onOpenDistortions,
-                onSave = vm::save,
+                onSave = { vm.save(intensity) },
                 onSkip = {
-                    vm.skip()
+                    vm.skip(intensity)
                     onDone()
                 },
                 onSurface = onSurface,
@@ -106,6 +108,7 @@ private fun ThoughtCheckEditor(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
+            .imePadding()
             .padding(horizontal = 24.dp, vertical = 28.dp),
     ) {
         Text(

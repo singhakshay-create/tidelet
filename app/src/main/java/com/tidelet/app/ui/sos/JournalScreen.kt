@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -47,6 +48,8 @@ import com.tidelet.app.ui.theme.TideletTheme
 @Composable
 fun JournalScreen(
     onDone: () -> Unit,
+    onViewEntries: () -> Unit = {},
+    intensity: Int? = null,
     vm: JournalViewModel = viewModel(),
 ) {
     val state by vm.state.collectAsStateWithLifecycle()
@@ -60,14 +63,18 @@ fun JournalScreen(
             .background(surface),
     ) {
         if (state.saved) {
-            JournalSaved(onClose = onDone, onSurface = onSurface)
+            JournalSaved(
+                onClose = onDone,
+                onViewEntries = onViewEntries,
+                onSurface = onSurface,
+            )
         } else {
             JournalEditor(
                 text = state.text,
                 onTextChange = vm::setText,
-                onSave = vm::save,
+                onSave = { vm.save(intensity) },
                 onSkip = {
-                    vm.skip()
+                    vm.skip(intensity)
                     onDone()
                 },
                 onSurface = onSurface,
@@ -88,6 +95,7 @@ private fun JournalEditor(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
+            .imePadding()
             .padding(horizontal = 24.dp, vertical = 28.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -140,6 +148,7 @@ private fun JournalEditor(
 @Composable
 private fun JournalSaved(
     onClose: () -> Unit,
+    onViewEntries: () -> Unit,
     onSurface: androidx.compose.ui.graphics.Color,
 ) {
     Column(
@@ -162,7 +171,11 @@ private fun JournalSaved(
             color = onSurface,
             textAlign = TextAlign.Center,
         )
-        Spacer(Modifier.height(40.dp))
+        Spacer(Modifier.height(24.dp))
+        TextButton(onClick = onViewEntries) {
+            Text(stringResource(R.string.journal_saved_view_entries))
+        }
+        Spacer(Modifier.height(16.dp))
         OutlinedButton(
             onClick = onClose,
             modifier = Modifier.fillMaxWidth(),
