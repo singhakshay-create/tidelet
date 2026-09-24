@@ -6,6 +6,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.temporal.ChronoUnit
 import java.time.temporal.TemporalAdjusters
 
 /**
@@ -28,12 +29,18 @@ fun streakFromStartDate(
     zone: ZoneId = ZoneId.systemDefault(),
 ): StreakDuration {
     // The streak begins at midnight local time on the chosen start date.
-    val startInstant = startDate.atStartOfDay(zone).toInstant()
-    val d = Duration.between(startInstant, now).coerceAtLeast(Duration.ZERO)
+    val start = startDate.atStartOfDay(zone)
+    val current = now.atZone(zone)
+    if (!current.isAfter(start)) return StreakDuration(0, 0, 0)
+    // Count calendar days in local time, not elapsed 24h blocks: a DST
+    // spring-forward day is only 23 hours long, so Duration.toDays() would
+    // under-count the streak by one until the clocks fall back.
+    val days = ChronoUnit.DAYS.between(start, current)
+    val remainder = Duration.between(start.plusDays(days), current)
     return StreakDuration(
-        days = d.toDays(),
-        hours = d.toHours() % 24,
-        minutes = d.toMinutes() % 60,
+        days = days,
+        hours = remainder.toHours() % 24,
+        minutes = remainder.toMinutes() % 60,
     )
 }
 
